@@ -1,0 +1,582 @@
+---
+import SectionHeader from "../ui/SectionHeader.astro";
+import Button from "../ui/Button.astro";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+    standalone?: boolean; // true on /agendar page
+}
+
+const { standalone = false } = Astro.props;
+---
+
+<section class="contact section" id="contacto" aria-labelledby="contact-title">
+    <div class="contact__bg-deco" aria-hidden="true">
+        <!-- Faint arch SVG -->
+        <svg
+            viewBox="0 0 400 500"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                d="M200 480 L200 200 Q200 60 100 60 Q0 60 0 200 L0 480 Z"
+                fill="white"
+                opacity="0.03"></path>
+            <path
+                d="M200 480 L200 200 Q200 60 300 60 Q400 60 400 200 L400 480 Z"
+                fill="white"
+                opacity="0.03"></path>
+            <rect
+                x="0"
+                y="200"
+                width="400"
+                height="12"
+                fill="white"
+                opacity="0.025"></rect>
+            <rect
+                x="40"
+                y="320"
+                width="320"
+                height="10"
+                fill="white"
+                opacity="0.02"></rect>
+        </svg>
+    </div>
+
+    <div class="container">
+        <SectionHeader
+            eyebrow="Prendre rendez-vous"
+            title={standalone
+                ? "Agenda tu clase gratuita"
+                : "¿Lista para empezar?"}
+            subtitle="Agenda tu primera clase de prueba completamente gratis. Sin compromiso."
+            align="center"
+            eyebrowColor="lavender"
+        />
+
+        <div class="contact__grid">
+            <!-- Form -->
+            <div class="contact__form-wrap reveal">
+                <form
+                    class="contact__form"
+                    name="contact"
+                    method="POST"
+                    data-netlify="true"
+                    netlify-honeypot="bot-field"
+                    id="contact-form"
+                    novalidate
+                    aria-label="Formulario para agendar clase"
+                >
+                    <input type="hidden" name="form-name" value="contact" />
+                    <input type="hidden" name="bot-field" aria-hidden="true" />
+
+                    <div class="form-group">
+                        <label for="nombre" class="form-label"
+                            >Nombre completo <span
+                                class="required"
+                                aria-hidden="true">*</span
+                            ></label
+                        >
+                        <input
+                            type="text"
+                            id="nombre"
+                            name="nombre"
+                            class="form-input"
+                            placeholder="Tu nombre completo"
+                            required
+                            autocomplete="name"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="form-label"
+                            >Correo electrónico <span
+                                class="required"
+                                aria-hidden="true">*</span
+                            ></label
+                        >
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            class="form-input"
+                            placeholder="tu@correo.com"
+                            required
+                            autocomplete="email"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="whatsapp" class="form-label"
+                            >WhatsApp <span class="required" aria-hidden="true"
+                                >*</span
+                            ></label
+                        >
+                        <div class="form-tel-wrap">
+                            <span class="form-tel-prefix">+57</span>
+                            <input
+                                type="tel"
+                                id="whatsapp"
+                                name="whatsapp"
+                                class="form-input form-input--tel"
+                                placeholder="300 000 0000"
+                                required
+                                autocomplete="tel"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nivel" class="form-label"
+                            >Nivel actual de francés <span
+                                class="required"
+                                aria-hidden="true">*</span
+                            ></label
+                        >
+                        <select
+                            id="nivel"
+                            name="nivel"
+                            class="form-input"
+                            required
+                        >
+                            <option value="" disabled selected
+                                >Selecciona tu nivel</option
+                            >
+                            <option value="ninguno">Ninguno / Desde cero</option
+                            >
+                            <option value="a1">A1 — Principiante</option>
+                            <option value="a2">A2 — Básico</option>
+                            <option value="b1">B1 — Intermedio</option>
+                            <option value="b2">B2 — Intermedio-alto</option>
+                            <option value="c1">C1 — Avanzado</option>
+                            <option value="no-se">No lo sé</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="objetivo" class="form-label"
+                            >Objetivo principal <span
+                                class="required"
+                                aria-hidden="true">*</span
+                            ></label
+                        >
+                        <select
+                            id="objetivo"
+                            name="objetivo"
+                            class="form-input"
+                            required
+                        >
+                            <option value="" disabled selected
+                                >¿Para qué quieres aprender?</option
+                            >
+                            <option value="viajes">Viajes</option>
+                            <option value="negocios">Negocios</option>
+                            <option value="delf-dalf">DELF o DALF</option>
+                            <option value="conversacion">Conversación</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mensaje" class="form-label"
+                            >Mensaje (opcional)</label
+                        >
+                        <textarea
+                            id="mensaje"
+                            name="mensaje"
+                            class="form-input"
+                            rows="4"
+                            placeholder="Cuéntame un poco más sobre ti y tus objetivos..."
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group form-group--checkbox">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="acepto" required />
+                            <span class="checkbox-text">
+                                Acepto recibir información sobre cursos y
+                                novedades
+                            </span>
+                        </label>
+                    </div>
+
+                    <Button type="submit" variant="primary" fullWidth size="lg">
+                        Agendar mi clase gratuita →
+                    </Button>
+
+                    <!-- Success message (hidden by default) -->
+                    <div
+                        class="form-success"
+                        id="form-success"
+                        hidden
+                        aria-live="polite"
+                        role="status"
+                    >
+                        <Icon
+                            name="tabler:circle-check"
+                            class="form-success__icon"
+                            aria-hidden="true"
+                        />
+                        <strong>¡Mensaje enviado!</strong>
+                        <p>
+                            Te respondo en menos de 24 horas. ¡Bienvenida al
+                            francés!
+                        </p>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Info block -->
+            <div class="contact__info reveal">
+                <figure class="contact__reassurance">
+                    <blockquote class="contact__reassurance-quote">
+                        «Respondo en menos de 24 horas.»
+                    </blockquote>
+                    <figcaption class="contact__reassurance-sub">
+                        Agenda tu primera sesión hoy. Sin compromiso, sin pago
+                        anticipado.
+                    </figcaption>
+                </figure>
+
+                <ul
+                    class="contact__info-list"
+                    aria-label="Información de contacto"
+                >
+                    <li class="contact__info-item">
+                        <Icon
+                            name="tabler:brand-whatsapp"
+                            class="contact__info-icon"
+                            aria-hidden="true"
+                        />
+                        <span>+57 300 000 0000 · WhatsApp</span>
+                    </li>
+                    <li class="contact__info-item">
+                        <Icon
+                            name="tabler:mail"
+                            class="contact__info-icon"
+                            aria-hidden="true"
+                        />
+                        <span>hola@miprofe.com</span>
+                    </li>
+                    <li class="contact__info-item">
+                        <Icon
+                            name="tabler:map-pin"
+                            class="contact__info-icon"
+                            aria-hidden="true"
+                        />
+                        <span>Bogotá, Colombia · Online LATAM</span>
+                    </li>
+                </ul>
+
+                <!-- Social links -->
+                <div
+                    class="contact__socials"
+                    role="list"
+                    aria-label="Redes sociales"
+                >
+                    <a
+                        href="https://linkedin.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="social-btn"
+                        role="listitem"
+                        aria-label="LinkedIn"
+                    >
+                        <Icon
+                            name="tabler:brand-linkedin"
+                            class="social-btn__icon"
+                            aria-hidden="true"
+                        />
+                    </a>
+                    <a
+                        href="https://instagram.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="social-btn"
+                        role="listitem"
+                        aria-label="Instagram"
+                    >
+                        <Icon
+                            name="tabler:brand-instagram"
+                            class="social-btn__icon"
+                            aria-hidden="true"
+                        />
+                    </a>
+                    <a
+                        href="https://youtube.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="social-btn"
+                        role="listitem"
+                        aria-label="YouTube"
+                    >
+                        <Icon
+                            name="tabler:brand-youtube"
+                            class="social-btn__icon"
+                            aria-hidden="true"
+                        />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .contact {
+        background: linear-gradient(180deg, #000000 0%, #1a0d2e 100%);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .contact__bg-deco {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 40%;
+        max-width: 400px;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .container {
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Grid */
+    .contact__grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+        align-items: start;
+    }
+
+    @media (min-width: 1024px) {
+        .contact__grid {
+            grid-template-columns: 55fr 45fr;
+        }
+    }
+
+    /* Form */
+    .contact__form {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-3);
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .required {
+        color: var(--accent-light);
+    }
+
+    .form-tel-wrap {
+        display: flex;
+        align-items: center;
+        gap: 0;
+    }
+
+    .form-tel-prefix {
+        font-family: var(--font-mono);
+        font-size: var(--text-sm);
+        color: var(--color-gray);
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border-color);
+        border-right: none;
+        border-radius: var(--radius-md) 0 0 var(--radius-md);
+        padding: 12px 12px;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .form-input--tel {
+        border-radius: 0 var(--radius-md) var(--radius-md) 0 !important;
+    }
+
+    select.form-input {
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23A7A9AC' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        padding-right: 40px;
+    }
+
+    select.form-input option {
+        background: #1a0d2e;
+        color: var(--color-white);
+    }
+
+    textarea.form-input {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    .form-group--checkbox {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 0;
+    }
+
+    .checkbox-label {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        cursor: pointer;
+        font-family: var(--font-body);
+        font-size: var(--text-sm);
+        color: var(--color-gray);
+        line-height: 1.5;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        accent-color: var(--accent-primary);
+        margin-top: 2px;
+        cursor: pointer;
+    }
+
+    /* Success message */
+    .form-success {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: var(--space-1);
+        padding: var(--space-4);
+        background: rgba(96, 64, 153, 0.12);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        color: var(--color-white);
+    }
+
+    .form-success__icon {
+        width: 40px;
+        height: 40px;
+        color: var(--accent-light);
+    }
+
+    .form-success p {
+        color: var(--color-gray);
+        font-size: var(--text-sm);
+    }
+
+    /* Info block */
+    .contact__info {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-6);
+    }
+
+    .contact__reassurance-quote {
+        font-family: var(--font-heading);
+        font-style: italic;
+        font-size: var(--text-2xl);
+        color: var(--color-white);
+        line-height: 1.4;
+        border: none;
+        padding: 0;
+        margin: 0 0 var(--space-1) 0;
+    }
+
+    .contact__reassurance-sub {
+        font-family: var(--font-body);
+        font-size: var(--text-sm);
+        color: var(--color-gray);
+        margin-top: var(--space-1);
+    }
+
+    .contact__info-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2);
+    }
+
+    .contact__info-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-family: var(--font-body);
+        font-size: var(--text-base);
+        color: var(--color-gray);
+    }
+
+    .contact__info-icon {
+        width: 20px;
+        height: 20px;
+        color: var(--accent-light);
+        flex-shrink: 0;
+    }
+
+    .contact__socials {
+        display: flex;
+        gap: var(--space-1);
+    }
+
+    .social-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        transition:
+            background var(--transition-base),
+            border-color var(--transition-base);
+        text-decoration: none;
+    }
+
+    .social-btn:hover {
+        background: var(--accent-primary);
+        border-color: var(--accent-primary);
+    }
+
+    .social-btn__icon {
+        width: 18px;
+        height: 18px;
+        color: var(--accent-light);
+    }
+
+    .social-btn:hover .social-btn__icon {
+        color: var(--color-white);
+    }
+</style>
+
+<script>
+    const form = document.getElementById(
+        "contact-form",
+    ) as HTMLFormElement | null;
+    const successMsg = document.getElementById("form-success");
+
+    if (form) {
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const data = new FormData(form);
+            try {
+                await fetch("/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: new URLSearchParams(
+                        data as unknown as Record<string, string>,
+                    ).toString(),
+                });
+                form.style.display = "none";
+                if (successMsg) successMsg.hidden = false;
+            } catch {
+                // fallback: native submit
+                form.submit();
+            }
+        });
+    }
+</script>

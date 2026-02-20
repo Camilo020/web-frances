@@ -1,0 +1,98 @@
+---
+import "../../styles/global.css";
+import Navbar from "./Navbar.astro";
+import Footer from "./Footer.astro";
+import { SEO } from "astro-seo";
+
+interface Props {
+    title?: string;
+    description?: string;
+    image?: string;
+    canonical?: string;
+}
+
+const {
+    title = "Miprofe | Profesora de Francés en Bogotá y Online",
+    description = "Clases de francés personalizadas en Bogotá y online para adultos. Filóloga certificada DALF. Preparación DELF/DALF, negocios y viajes. Primera clase 100% gratis.",
+    image = "/images/og-image.jpg",
+    canonical = Astro.url.href,
+} = Astro.props;
+
+const fullTitle = title.includes("Miprofe") ? title : `${title} | Miprofe`;
+---
+
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <SEO
+            title={fullTitle}
+            description={description}
+            canonical={canonical}
+            openGraph={{
+                basic: {
+                    title: fullTitle,
+                    type: "website",
+                    image,
+                    url: canonical,
+                },
+                optional: {
+                    description,
+                    locale: "es_CO",
+                    siteName: "Miprofe",
+                },
+                image: {
+                    alt: "Miprofe — Profesora de Francés en Bogotá",
+                    width: 1200,
+                    height: 630,
+                },
+            }}
+            twitter={{
+                card: "summary_large_image",
+                site: "@miprofe",
+                title: fullTitle,
+                description,
+                image,
+                imageAlt: "Miprofe — Profesora de Francés",
+            }}
+            extend={{
+                meta: [
+                    { name: "theme-color", content: "#604099" },
+                    { name: "robots", content: "index, follow" },
+                    { name: "author", content: "Miprofe" },
+                ],
+                link: [{ rel: "sitemap", href: "/sitemap-index.xml" }],
+            }}
+        />
+    </head>
+    <body>
+        <Navbar />
+        <main id="main-content">
+            <slot />
+        </main>
+        <Footer />
+
+        <!-- Global IntersectionObserver for .reveal elements -->
+        <script>
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("visible");
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.1, rootMargin: "0px 0px -60px 0px" },
+            );
+
+            document.querySelectorAll(".reveal").forEach((el) => {
+                observer.observe(el);
+            });
+        </script>
+    </body>
+</html>

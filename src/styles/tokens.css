@@ -1,0 +1,82 @@
+/* ============================================================
+   DESIGN TOKENS — Single source of truth
+   All values defined here. Never hardcode outside this file.
+   ============================================================ */
+
+:root {
+  /* ── Base Palette ────────────────────────────────────────── */
+  --color-black:    #000000;
+  --color-white:    #FFFFFF;
+  --color-gray:     #A7A9AC;
+  --color-purple:   #604099;
+  --color-lavender: #BB99FF;
+
+  /* ── Semantic Aliases ───────────────────────────────────── */
+  --bg-primary:   var(--color-black);
+  --bg-surface:   var(--color-white);
+  --bg-subtle:    #0D0D0D;
+  --text-primary: var(--color-white);
+  --text-on-light: var(--color-black);
+  --text-muted:   var(--color-gray);
+  --accent-primary: var(--color-purple);
+  --accent-light:   var(--color-lavender);
+  --border-color:   rgba(187, 153, 255, 0.2);
+
+  /* ── Typography ─────────────────────────────────────────── */
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono:    'DM Mono', monospace;
+
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  2rem;
+  --text-4xl:  2.75rem;
+  --text-5xl:  3.75rem;
+  --text-6xl:  5rem;
+
+  /* ── Spacing (8px base unit) ────────────────────────────── */
+  --space-1:  0.5rem;
+  --space-2:  1rem;
+  --space-3:  1.5rem;
+  --space-4:  2rem;
+  --space-6:  3rem;
+  --space-8:  4rem;
+  --space-12: 6rem;
+  --space-16: 8rem;
+  --space-24: 12rem;
+
+  /* ── Shapes ─────────────────────────────────────────────── */
+  --radius-sm:   6px;
+  --radius-md:   12px;
+  --radius-lg:   20px;
+  --radius-pill: 9999px;
+  --radius-blob: 60% 40% 30% 70% / 60% 30% 70% 40%;
+
+  /* ── Shadows ─────────────────────────────────────────────── */
+  --shadow-card:  0 4px 32px rgba(96, 64, 153, 0.15);
+  --shadow-hover: 0 12px 48px rgba(96, 64, 153, 0.3);
+  --shadow-glow:  0 0 40px rgba(187, 153, 255, 0.2);
+
+  /* ── Transitions ─────────────────────────────────────────── */
+  --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ── Layout ─────────────────────────────────────────────── */
+  --max-width: 1200px;
+}
+
+/* ── 2xl screens: scale up ─────────────────────────────────── */
+@media (min-width: 1536px) {
+  :root {
+    --text-3xl: 2.2rem;
+    --text-4xl: 3rem;
+    --text-5xl: 4.2rem;
+    --text-6xl: 5.5rem;
+    --space-12: 7rem;
+    --space-16: 9rem;
+  }
+}

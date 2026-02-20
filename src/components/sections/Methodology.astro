@@ -1,0 +1,200 @@
+---
+import SectionHeader from '../ui/SectionHeader.astro';
+import { Icon } from 'astro-icon/components';
+import { methodologyPillars } from '../../data/methodology';
+---
+
+<section class="methodology section" id="metodologia" aria-labelledby="methodology-title">
+  <div class="container">
+    <SectionHeader
+      eyebrow="Ma méthode"
+      title="Mi metodología"
+      subtitle="Rigor académico, comunicación real y cultura francesa en cada clase."
+      align="center"
+      eyebrowColor="lavender"
+    />
+
+    <div class="methodology__grid">
+      <!-- Connecting line (desktop) -->
+      <div class="methodology__line" aria-hidden="true"></div>
+
+      {methodologyPillars.map((pillar) => (
+        <div class="pillar reveal" aria-labelledby={`pillar-title-${pillar.step}`}>
+          <!-- Timeline line (mobile) -->
+          {pillar.step < methodologyPillars.length && (
+            <div class="pillar__mobile-line" aria-hidden="true"></div>
+          )}
+
+          <!-- Step number -->
+          <p class="pillar__step" aria-label={`Paso ${pillar.step}`}>
+            0{pillar.step}
+          </p>
+
+          <!-- Icon -->
+          <div class="pillar__icon-wrap" aria-hidden="true">
+            <Icon name={pillar.icon} class="pillar__icon" />
+          </div>
+
+          <!-- French title -->
+          <p class="pillar__title-fr">{pillar.titleFr}</p>
+
+          <!-- Spanish title -->
+          <h3 class="pillar__title-es" id={`pillar-title-${pillar.step}`}>
+            {pillar.titleEs}
+          </h3>
+
+          <!-- Description -->
+          <p class="pillar__desc">{pillar.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .methodology {
+    background: linear-gradient(135deg, #0D0D0D 0%, #1A0D2E 100%);
+    position: relative;
+  }
+
+  /* ── Grid ──────────────────────────────────────────────────── */
+  .methodology__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    position: relative;
+  }
+
+  @media (min-width: 1024px) {
+    .methodology__grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-6);
+    }
+  }
+
+  /* Desktop connecting line */
+  .methodology__line {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .methodology__line {
+      display: block;
+      position: absolute;
+      top: 60px; /* at icon center */
+      left: 12.5%;
+      right: 12.5%;
+      height: 1px;
+      border-top: 2px dashed rgba(187, 153, 255, 0.3);
+      z-index: 0;
+    }
+  }
+
+  /* ── Pillar ────────────────────────────────────────────────── */
+  .pillar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+    position: relative;
+    z-index: 1;
+    padding-left: 70px; /* mobile: space for icon on the left */
+  }
+
+  @media (min-width: 1024px) {
+    .pillar {
+      align-items: center;
+      text-align: center;
+      padding-left: 0;
+    }
+  }
+
+  /* Mobile timeline vertical line */
+  .pillar__mobile-line {
+    display: block;
+    position: absolute;
+    left: 28px;
+    top: 70px;
+    bottom: calc(-1 * var(--space-8));
+    width: 2px;
+    background: rgba(187, 153, 255, 0.25);
+  }
+
+  @media (min-width: 1024px) {
+    .pillar__mobile-line { display: none; }
+  }
+
+  .pillar__step {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-gray);
+    letter-spacing: 0.1em;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  @media (min-width: 1024px) {
+    .pillar__step {
+      position: static;
+    }
+  }
+
+  .pillar__icon-wrap {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--color-purple) 0%, #3D1F6B 100%);
+    box-shadow: var(--shadow-glow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: absolute;
+    left: 0;
+    top: 20px;
+  }
+
+  @media (min-width: 1024px) {
+    .pillar__icon-wrap {
+      position: static;
+      animation: pulse-glow 3s ease-in-out infinite;
+    }
+  }
+
+  .pillar__icon {
+    width: 28px;
+    height: 28px;
+    color: var(--color-white);
+  }
+
+  .pillar__title-fr {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--accent-light);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .pillar__title-es {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--color-white);
+    line-height: 1.2;
+  }
+
+  .pillar__desc {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-gray);
+    line-height: 1.7;
+    max-width: 200px;
+  }
+
+  @media (min-width: 1024px) {
+    .pillar__desc {
+      text-align: center;
+    }
+  }
+</style>

@@ -1,0 +1,131 @@
+---
+import type { Testimonial } from "../../data/testimonials";
+
+interface Props {
+    testimonial: Testimonial;
+}
+
+const { testimonial } = Astro.props;
+---
+
+<article
+    class="testimonial-card"
+    aria-label={`Testimonio de ${testimonial.studentName}`}
+>
+    <!-- Decorative guillemet -->
+    <div class="testimonial-card__guillemet" aria-hidden="true">«</div>
+
+    <!-- Stars -->
+    <div class="testimonial-card__stars" aria-label="5 estrellas">
+        <span aria-hidden="true">★★★★★</span>
+    </div>
+
+    <!-- Quote -->
+    <blockquote class="testimonial-card__quote">
+        {testimonial.quote}
+    </blockquote>
+
+    <!-- Avatar row -->
+    <footer class="testimonial-card__footer">
+        <div class="avatar" aria-hidden="true">
+            {testimonial.initials}
+        </div>
+        <div class="testimonial-card__info">
+            <p class="testimonial-card__name">{testimonial.studentName}</p>
+            <p class="testimonial-card__meta">
+                {testimonial.context} · {testimonial.location}
+            </p>
+        </div>
+    </footer>
+</article>
+
+<style>
+    .testimonial-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        padding: var(--space-6);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-3);
+        transition:
+            border-color var(--transition-base),
+            transform var(--transition-base),
+            box-shadow var(--transition-base);
+        height: 100%;
+    }
+
+    .testimonial-card:hover {
+        border-color: var(--accent-light);
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-hover);
+    }
+
+    /* Guillemet */
+    .testimonial-card__guillemet {
+        font-family: var(--font-heading);
+        font-size: 80px;
+        font-weight: 700;
+        color: var(--accent-primary);
+        opacity: 0.4;
+        line-height: 0.6;
+        user-select: none;
+    }
+
+    /* Stars */
+    .testimonial-card__stars {
+        color: var(--accent-light);
+        font-size: var(--text-sm);
+        letter-spacing: 2px;
+    }
+
+    /* Quote */
+    .testimonial-card__quote {
+        font-family: var(--font-heading);
+        font-style: italic;
+        font-size: var(--text-xl);
+        color: var(--color-white);
+        line-height: 1.6;
+        flex: 1;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Footer */
+    .testimonial-card__footer {
+        display: flex;
+        align-items: center;
+        gap: var(--space-1);
+        margin-top: var(--space-1);
+    }
+
+    .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--color-purple), #3d1f6b);
+        color: var(--color-white);
+        font-family: var(--font-mono);
+        font-size: var(--text-sm);
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .testimonial-card__name {
+        font-family: var(--font-body);
+        font-size: var(--text-sm);
+        font-weight: 600;
+        color: var(--color-white);
+    }
+
+    .testimonial-card__meta {
+        font-family: var(--font-body);
+        font-size: var(--text-xs);
+        color: var(--color-gray);
+        margin-top: 2px;
+    }
+</style>

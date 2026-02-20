@@ -1,0 +1,82 @@
+---
+interface Props {
+    eyebrow: string;
+    title: string;
+    subtitle?: string;
+    align?: "left" | "center";
+    eyebrowColor?: "gray" | "lavender";
+}
+
+const {
+    eyebrow,
+    title,
+    subtitle,
+    align = "center",
+    eyebrowColor = "gray",
+} = Astro.props;
+---
+
+<div class:list={["section-header", `section-header--${align}`]}>
+    <p class:list={["section-header__eyebrow", `eyebrow--${eyebrowColor}`]}>
+        {eyebrow}
+    </p>
+    <h2 class="section-header__title">{title}</h2>
+    {subtitle && <p class="section-header__subtitle">{subtitle}</p>}
+</div>
+
+<style>
+    .section-header {
+        margin-bottom: var(--space-8);
+    }
+
+    .section-header--center {
+        text-align: center;
+    }
+    .section-header--left {
+        text-align: left;
+    }
+
+    .section-header__eyebrow {
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        margin-bottom: var(--space-1);
+    }
+
+    .eyebrow--gray {
+        color: var(--color-gray);
+    }
+    .eyebrow--lavender {
+        color: var(--accent-light);
+    }
+
+    .section-header__title {
+        font-family: var(--font-heading);
+        font-size: var(--text-3xl);
+        font-weight: 700;
+        color: var(--color-white);
+        line-height: 1.15;
+        margin-top: var(--space-1);
+    }
+
+    @media (min-width: 768px) {
+        .section-header__title {
+            font-size: var(--text-4xl);
+        }
+    }
+
+    .section-header__subtitle {
+        font-family: var(--font-body);
+        font-size: var(--text-lg);
+        color: var(--color-gray);
+        line-height: 1.7;
+        max-width: 560px;
+        margin-top: var(--space-2);
+    }
+
+    .section-header--center .section-header__subtitle {
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>

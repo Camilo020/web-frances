@@ -1,17 +1,48 @@
 ---
-
+import BaseLayout from "../components/layout/BaseLayout.astro";
+import Hero from "../components/sections/Hero.astro";
+import About from "../components/sections/About.astro";
+import Services from "../components/sections/Services.astro";
+import Methodology from "../components/sections/Methodology.astro";
+import Testimonials from "../components/sections/Testimonials.astro";
+import BlogPreview from "../components/sections/BlogPreview.astro";
+import Contact from "../components/sections/Contact.astro";
+import Divider from "../components/ui/Divider.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+	<!-- JSON-LD Person schema -->
+	<script type="application/ld+json" slot="head">
+		{
+			"@context": "https://schema.org",
+			"@type": "Person",
+			"name": "Miprofe",
+			"jobTitle": "Profesora de Francés",
+			"description": "Filóloga certificada DALF C1. Clases de francés para adultos — DELF/DALF, negocios y viajes. Bogotá y online.",
+			"address": {
+				"@type": "PostalAddress",
+				"addressLocality": "Bogotá",
+				"addressCountry": "CO"
+			},
+			"url": "https://miprofe.com",
+			"sameAs": [
+				"https://linkedin.com",
+				"https://instagram.com",
+				"https://youtube.com"
+			]
+		}
+	</script>
+
+	<Hero />
+	<Divider style="fleur" />
+	<About />
+	<Divider style="line" />
+	<Services />
+	<Divider style="dots" />
+	<Methodology />
+	<Divider style="fleur" />
+	<Testimonials />
+	<Divider style="line" />
+	<BlogPreview />
+	<Contact />
+</BaseLayout>

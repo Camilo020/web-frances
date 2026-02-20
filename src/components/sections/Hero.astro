@@ -1,0 +1,432 @@
+---
+import Button from "../ui/Button.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<section class="hero" id="inicio" aria-label="Hero — Inicio">
+    <!-- Eiffel Tower watermark -->
+    <div class="hero__watermark" aria-hidden="true">
+        <svg
+            viewBox="0 0 200 400"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                d="M100 380 L60 200 L40 200 L50 160 L30 160 L80 20 L100 10 L120 20 L170 160 L150 160 L160 200 L140 200 Z"
+                fill="white"
+                opacity="0.04"></path>
+            <rect
+                x="55"
+                y="150"
+                width="90"
+                height="8"
+                fill="white"
+                opacity="0.03"></rect>
+            <rect
+                x="65"
+                y="195"
+                width="70"
+                height="8"
+                fill="white"
+                opacity="0.03"></rect>
+        </svg>
+    </div>
+
+    <div class="container hero__container">
+        <!-- Text block -->
+        <div class="hero__text animate-fade-in-up">
+            <p class="hero__eyebrow">
+                <Icon
+                    name="tabler:sparkles"
+                    class="hero__eyebrow-icon"
+                    aria-hidden="true"
+                />
+                Filóloga · Profesora certificada · Bogotá &amp; Online
+            </p>
+
+            <h1 class="hero__h1">
+                <span class="hero__h1-line1">Parlez-vous</span>
+                <span class="hero__h1-line2 gradient-text">français&nbsp;?</span
+                >
+            </h1>
+
+            <span class="deco-rule" aria-hidden="true"></span>
+
+            <p class="hero__subtitle">
+                Clases de francés personalizadas para adultos &mdash; viajes,
+                negocios o certificación DELF/DALF. Presencial en Bogotá y en
+                línea para todo LATAM.
+            </p>
+
+            <div class="hero__cta-row">
+                <Button href="/#cursos" variant="primary" size="lg"
+                    >Ver cursos →</Button
+                >
+                <Button href="/agendar" variant="outline" size="lg"
+                    >Clase gratuita</Button
+                >
+            </div>
+
+            <div class="hero__proof stagger-4 animate-fade-in">
+                <div class="hero__stars" aria-label="5 estrellas">★★★★★</div>
+                <p class="hero__proof-text">
+                    Más de 200 estudiantes · 5 años de experiencia
+                </p>
+            </div>
+        </div>
+
+        <!-- Visual block -->
+        <div class="hero__visual animate-fade-in stagger-2">
+            <!-- Glow -->
+            <div class="hero__glow" aria-hidden="true"></div>
+
+            <!-- Blob image -->
+            <div class="hero__blob-wrap">
+                <div
+                    class="hero__blob-img"
+                    aria-label="Foto de la profesora de francés"
+                >
+                    <div class="hero__blob-placeholder" aria-hidden="true">
+                        <!-- Placeholder gradient when no photo provided -->
+                        <svg
+                            viewBox="0 0 200 240"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="hero__placeholder-svg"
+                        >
+                            <rect
+                                width="200"
+                                height="240"
+                                rx="20"
+                                fill="url(#grad1)"></rect>
+                            <defs>
+                                <linearGradient
+                                    id="grad1"
+                                    x1="0%"
+                                    y1="0%"
+                                    x2="100%"
+                                    y2="100%"
+                                >
+                                    <stop
+                                        offset="0%"
+                                        style="stop-color:#604099;stop-opacity:1"
+                                    ></stop>
+                                    <stop
+                                        offset="100%"
+                                        style="stop-color:#1A0D2E;stop-opacity:1"
+                                    ></stop>
+                                </linearGradient>
+                            </defs>
+                            <circle
+                                cx="100"
+                                cy="85"
+                                r="40"
+                                fill="rgba(187,153,255,0.3)"></circle>
+                            <ellipse
+                                cx="100"
+                                cy="180"
+                                rx="55"
+                                ry="40"
+                                fill="rgba(187,153,255,0.2)"></ellipse>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating badge 1 -->
+            <div
+                class="hero__badge hero__badge--top animate-float"
+                aria-label="Certificación DALF C1"
+            >
+                <Icon
+                    name="tabler:star-filled"
+                    class="hero__badge-icon"
+                    aria-hidden="true"
+                />
+                <span class="hero__badge-text">DALF C1 Certifiée</span>
+            </div>
+
+            <!-- Floating badge 2 -->
+            <div
+                class="hero__badge hero__badge--bottom animate-float-reverse"
+                aria-label="5 años de experiencia"
+            >
+                <Icon
+                    name="tabler:book"
+                    class="hero__badge-icon"
+                    aria-hidden="true"
+                />
+                <span class="hero__badge-text">5 ans d'expérience</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="hero__scroll" aria-hidden="true">
+        <Icon
+            name="tabler:chevron-down"
+            class="hero__scroll-icon animate-bounce-y"
+        />
+    </div>
+</section>
+
+<style>
+    .hero {
+        position: relative;
+        min-height: 100svh;
+        background: var(--color-black);
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    /* Background watermark */
+    .hero__watermark {
+        position: absolute;
+        bottom: 0;
+        right: 5%;
+        width: 35%;
+        max-width: 300px;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .hero__container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+        align-items: center;
+        padding-top: 100px;
+        padding-bottom: var(--space-8);
+        position: relative;
+        z-index: 1;
+    }
+
+    @media (min-width: 1024px) {
+        .hero__container {
+            grid-template-columns: 55fr 45fr;
+            gap: var(--space-8);
+            padding-top: 0;
+            min-height: 100svh;
+        }
+    }
+
+    /* On mobile: reverse order — visual on top */
+    .hero__visual {
+        order: -1;
+    }
+
+    @media (min-width: 1024px) {
+        .hero__visual {
+            order: 0;
+        }
+    }
+
+    /* ── Text ─────────────────────────────────────────────────── */
+    .hero__eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--accent-light);
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        margin-bottom: var(--space-3);
+    }
+
+    .hero__eyebrow-icon {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+    }
+
+    .hero__h1 {
+        font-family: var(--font-heading);
+        font-weight: 700;
+        line-height: 1.05;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .hero__h1-line1,
+    .hero__h1-line2 {
+        font-size: var(--text-5xl);
+    }
+
+    @media (min-width: 1024px) {
+        .hero__h1-line1,
+        .hero__h1-line2 {
+            font-size: var(--text-6xl);
+        }
+    }
+
+    .hero__h1-line2 {
+        /* gradient-text class from global.css */
+    }
+
+    .hero__subtitle {
+        font-family: var(--font-body);
+        font-size: var(--text-lg);
+        color: var(--color-gray);
+        line-height: 1.7;
+        max-width: 480px;
+        margin-bottom: var(--space-4);
+    }
+
+    .hero__cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2);
+        margin-bottom: var(--space-8);
+    }
+
+    .hero__proof {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .hero__stars {
+        color: var(--accent-light);
+        font-size: var(--text-sm);
+        letter-spacing: 2px;
+    }
+
+    .hero__proof-text {
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--color-gray);
+    }
+
+    /* ── Visual ────────────────────────────────────────────────── */
+    .hero__visual {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 320px;
+    }
+
+    @media (min-width: 1024px) {
+        .hero__visual {
+            min-height: 500px;
+        }
+    }
+
+    /* Glow */
+    .hero__glow {
+        position: absolute;
+        width: 350px;
+        height: 350px;
+        border-radius: 50%;
+        background: radial-gradient(
+            circle,
+            var(--color-purple) 0%,
+            transparent 70%
+        );
+        opacity: 0.45;
+        filter: blur(60px);
+        z-index: 0;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .hero__blob-wrap {
+        position: relative;
+        z-index: 1;
+        width: 280px;
+        height: 340px;
+    }
+
+    @media (min-width: 768px) {
+        .hero__blob-wrap {
+            width: 340px;
+            height: 400px;
+        }
+    }
+
+    .hero__blob-img {
+        width: 100%;
+        height: 100%;
+        border-radius: var(--radius-blob);
+        animation: blob-morph 8s ease-in-out infinite alternate;
+        overflow: hidden;
+    }
+
+    .hero__blob-placeholder,
+    .hero__placeholder-svg {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Floating badges */
+    .hero__badge {
+        position: absolute;
+        background: var(--color-white);
+        border-radius: var(--radius-md);
+        padding: 10px 14px;
+        box-shadow: var(--shadow-card);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        z-index: 2;
+    }
+
+    .hero__badge--top {
+        top: 10%;
+        right: 0;
+    }
+
+    @media (min-width: 1024px) {
+        .hero__badge--top {
+            top: 15%;
+            right: -20px;
+        }
+    }
+
+    .hero__badge--bottom {
+        bottom: 10%;
+        left: 0;
+    }
+
+    @media (min-width: 1024px) {
+        .hero__badge--bottom {
+            bottom: 15%;
+            left: -20px;
+        }
+    }
+
+    .hero__badge-icon {
+        width: 18px;
+        height: 18px;
+        color: var(--accent-primary);
+        flex-shrink: 0;
+    }
+
+    .hero__badge-text {
+        font-family: var(--font-body);
+        font-size: var(--text-sm);
+        font-weight: 600;
+        color: var(--color-black);
+        white-space: nowrap;
+    }
+
+    /* Scroll indicator */
+    .hero__scroll {
+        position: absolute;
+        bottom: var(--space-4);
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+    }
+
+    .hero__scroll-icon {
+        width: 24px;
+        height: 24px;
+        color: var(--color-gray);
+    }
+</style>

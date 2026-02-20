@@ -1,0 +1,60 @@
+---
+import BaseLayout from "../components/layout/BaseLayout.astro";
+import Contact from "../components/sections/Contact.astro";
+import SectionHeader from "../components/ui/SectionHeader.astro";
+---
+
+<BaseLayout
+    title="Agendar clase gratuita | Miprofe"
+    description="Agenda tu primera clase de francés completamente gratuita. Filóloga certificada DALF. Bogotá y online para todo LATAM. Sin compromiso."
+>
+    <!-- Page hero -->
+    <header class="agendar-hero">
+        <div class="container">
+            <p class="agendar-hero__eyebrow">Prendre rendez-vous</p>
+            <h1 class="agendar-hero__title">Agenda tu clase gratuita</h1>
+            <p class="agendar-hero__subtitle">
+                Primera clase sin costo, sin compromiso. Solo tú, el francés y
+                una profesora que realmente quiere ayudarte a lograrlo.
+            </p>
+        </div>
+    </header>
+
+    <!-- Full booking form -->
+    <Contact standalone={true} />
+</BaseLayout>
+
+<style>
+    .agendar-hero {
+        background: linear-gradient(135deg, #000000 0%, #1a0d2e 100%);
+        padding-top: 130px;
+        padding-bottom: var(--space-8);
+        text-align: center;
+    }
+
+    .agendar-hero__eyebrow {
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--accent-light);
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        margin-bottom: var(--space-1);
+    }
+
+    .agendar-hero__title {
+        font-family: var(--font-heading);
+        font-size: var(--text-5xl);
+        font-weight: 700;
+        color: var(--color-white);
+        margin-bottom: var(--space-2);
+    }
+
+    .agendar-hero__subtitle {
+        font-family: var(--font-body);
+        font-size: var(--text-lg);
+        color: var(--color-gray);
+        max-width: 520px;
+        margin: 0 auto;
+        line-height: 1.7;
+    }
+</style>

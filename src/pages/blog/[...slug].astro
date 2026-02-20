@@ -1,0 +1,29 @@
+---
+import PostLayout from "../../components/blog/PostLayout.astro";
+import { getCollection } from "astro:content";
+import { getReadingTime, getArticleMeta } from "../../lib/utils";
+
+export async function getStaticPaths() {
+    const posts = await getCollection("blog", ({ data }) => !data.draft);
+    return posts.map((post) => ({
+        params: { slug: post.slug },
+        props: { post },
+    }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const readingTime = post.data.readingTime ?? getReadingTime(post.body ?? "");
+
+// Related posts
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const relatedPosts = allPosts
+    .filter(
+        (p) => p.slug !== post.slug && p.data.category === post.data.category,
+    )
+    .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+    .slice(0, 2);
+---
+
+<PostLayout post={post} />

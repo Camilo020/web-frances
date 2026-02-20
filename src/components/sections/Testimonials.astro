@@ -1,0 +1,53 @@
+---
+import SectionHeader from "../ui/SectionHeader.astro";
+import TestimonialCard from "../ui/TestimonialCard.astro";
+import { testimonials } from "../../data/testimonials";
+---
+
+<section
+    class="testimonials section"
+    id="testimonios"
+    aria-labelledby="testimonials-title"
+>
+    <div class="container">
+        <SectionHeader
+            eyebrow="Témoignages"
+            title="Lo que dicen mis estudiantes"
+            align="center"
+        />
+
+        <div class="testimonials__grid">
+            {
+                testimonials.map((testimonial) => (
+                    <div class="reveal">
+                        <TestimonialCard testimonial={testimonial} />
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>
+
+<style>
+    .testimonials {
+        background: var(--color-black);
+    }
+
+    .testimonials__grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+        .testimonials__grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .testimonials__grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+</style>

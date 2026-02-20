@@ -1,0 +1,42 @@
+---
+interface Props {
+    padding?: string;
+    hover?: boolean;
+    class?: string;
+}
+
+const {
+    padding = "var(--space-6)",
+    hover = true,
+    class: className = "",
+} = Astro.props;
+---
+
+<div
+    class:list={["card", { "card--hover": hover }, className]}
+    style={`padding: ${padding};`}
+>
+    <slot />
+</div>
+
+<style>
+    .card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        position: relative;
+        overflow: hidden;
+        transition:
+            transform var(--transition-base),
+            border-color var(--transition-base),
+            background var(--transition-base),
+            box-shadow var(--transition-base);
+    }
+
+    .card--hover:hover {
+        border-color: var(--accent-light);
+        background: rgba(96, 64, 153, 0.06);
+        transform: translateY(-6px);
+        box-shadow: var(--shadow-hover);
+    }
+</style>
