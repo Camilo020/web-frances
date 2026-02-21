@@ -1,5 +1,13 @@
 ---
 import { Icon } from "astro-icon/components";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import type { Lang } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url) as Lang;
+const t = useTranslations(lang);
+const f = t("footer");
+const prefix = lang === "es" ? "" : `/${lang}`;
+const year = new Date().getFullYear();
 ---
 
 <footer class="footer" role="contentinfo">
@@ -7,7 +15,7 @@ import { Icon } from "astro-icon/components";
         <div class="footer__grid">
             <!-- Col 1: Brand -->
             <div class="footer__col footer__col--brand">
-                <a href="/" class="footer__logo" aria-label="Miprofe — Inicio">
+                <a href={`${prefix}/`} class="footer__logo" aria-label={f.logoAriaLabel}>
                     <Icon
                         name="tabler:sparkles"
                         class="footer__logo-icon"
@@ -15,46 +23,27 @@ import { Icon } from "astro-icon/components";
                     />
                     <span class="footer__logo-text">Miprofe</span>
                 </a>
-                <p class="footer__tagline">
-                    Clases de francés personalizadas en Bogotá y online para
-                    adultos de toda LATAM.
-                </p>
+                <p class="footer__tagline">{f.tagline}</p>
             </div>
 
             <!-- Col 2: Navigation -->
             <div class="footer__col">
-                <h3 class="footer__heading">Navegación</h3>
-                <nav aria-label="Navegación del pie de página">
+                <h3 class="footer__heading">{f.navHeading}</h3>
+                <nav aria-label={f.navHeading}>
                     <ul class="footer__links">
-                        <li>
-                            <a href="/#inicio" class="footer__link">Inicio</a>
-                        </li>
-                        <li>
-                            <a href="/#sobre-mi" class="footer__link"
-                                >Sobre mí</a
-                            >
-                        </li>
-                        <li>
-                            <a href="/#cursos" class="footer__link">Cursos</a>
-                        </li>
-                        <li>
-                            <a href="/#metodologia" class="footer__link"
-                                >Metodología</a
-                            >
-                        </li>
-                        <li><a href="/blog" class="footer__link">Blog</a></li>
-                        <li>
-                            <a href="/agendar" class="footer__link"
-                                >Agendar clase</a
-                            >
-                        </li>
+                        <li><a href={`${prefix}/#inicio`} class="footer__link">{f.links.home}</a></li>
+                        <li><a href={`${prefix}/#sobre-mi`} class="footer__link">{f.links.about}</a></li>
+                        <li><a href={`${prefix}/#cursos`} class="footer__link">{f.links.courses}</a></li>
+                        <li><a href={`${prefix}/#metodologia`} class="footer__link">{f.links.methodology}</a></li>
+                        <li><a href={`${prefix}/blog`} class="footer__link">{f.links.blog}</a></li>
+                        <li><a href={`${prefix}/agendar`} class="footer__link">{f.links.book}</a></li>
                     </ul>
                 </nav>
             </div>
 
             <!-- Col 3: Social -->
             <div class="footer__col">
-                <h3 class="footer__heading">Sígueme</h3>
+                <h3 class="footer__heading">{f.socialHeading}</h3>
                 <div class="footer__socials">
                     <a
                         href="https://linkedin.com"
@@ -102,9 +91,9 @@ import { Icon } from "astro-icon/components";
         <!-- Bottom bar -->
         <div class="footer__bottom">
             <p class="footer__copy">
-                © 2026 Miprofe. Todos los derechos reservados.
+                {f.copyright.replace('{year}', String(year))}
             </p>
-            <p class="footer__made">Hecho con ♡ en Bogotá</p>
+            <p class="footer__made">{f.madeWith} ♡ {f.madeWithSuffix}</p>
         </div>
     </div>
 </footer>

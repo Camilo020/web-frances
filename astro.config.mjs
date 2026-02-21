@@ -8,8 +8,28 @@ import icon from 'astro-icon';
 export default defineConfig({
   site: 'https://miprofe.com',
   output: 'static',
+
+  // ── Astro native i18n routing ──────────────────────────────────
+  i18n: {
+    defaultLocale: 'es',
+    locales: ['es', 'en', 'fr'],
+    routing: {
+      prefixDefaultLocale: false, // Spanish at /, English at /en/, French at /fr/
+    },
+  },
+
   integrations: [
-    sitemap(),
+    sitemap({
+      // Generate hreflang entries for every locale automatically
+      i18n: {
+        defaultLocale: 'es',
+        locales: {
+          es: 'es-CO',
+          en: 'en-US',
+          fr: 'fr-FR',
+        },
+      },
+    }),
     icon({
       include: {
         tabler: ['*'],

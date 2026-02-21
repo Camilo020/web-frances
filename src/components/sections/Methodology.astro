@@ -1,15 +1,28 @@
 ---
 import SectionHeader from '../ui/SectionHeader.astro';
 import { Icon } from 'astro-icon/components';
-import { methodologyPillars } from '../../data/methodology';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/utils';
+
+// Icon map — keyed by step number (static, not translated)
+const pillarIcons: Record<number, string> = {
+  1: 'tabler:messages',
+  2: 'tabler:target',
+  3: 'tabler:building-arch',
+  4: 'tabler:trending-up',
+};
+
+const lang = getLangFromUrl(Astro.url) as Lang;
+const t = useTranslations(lang);
+const m = t('methodology');
 ---
 
 <section class="methodology section" id="metodologia" aria-labelledby="methodology-title">
   <div class="container">
     <SectionHeader
-      eyebrow="Ma méthode"
-      title="Mi metodología"
-      subtitle="Rigor académico, comunicación real y cultura francesa en cada clase."
+      eyebrow={m.eyebrow}
+      title={m.title}
+      subtitle={m.subtitle}
       align="center"
       eyebrowColor="lavender"
     />
@@ -18,27 +31,27 @@ import { methodologyPillars } from '../../data/methodology';
       <!-- Connecting line (desktop) -->
       <div class="methodology__line" aria-hidden="true"></div>
 
-      {methodologyPillars.map((pillar) => (
+      {m.pillars.map((pillar) => (
         <div class="pillar reveal" aria-labelledby={`pillar-title-${pillar.step}`}>
           <!-- Timeline line (mobile) -->
-          {pillar.step < methodologyPillars.length && (
+          {pillar.step < m.pillars.length && (
             <div class="pillar__mobile-line" aria-hidden="true"></div>
           )}
 
           <!-- Step number -->
-          <p class="pillar__step" aria-label={`Paso ${pillar.step}`}>
+          <p class="pillar__step" aria-label={`${m.stepAriaPrefix} ${pillar.step}`}>
             0{pillar.step}
           </p>
 
           <!-- Icon -->
           <div class="pillar__icon-wrap" aria-hidden="true">
-            <Icon name={pillar.icon} class="pillar__icon" />
+            <Icon name={pillarIcons[pillar.step] ?? 'tabler:star'} class="pillar__icon" />
           </div>
 
           <!-- French title -->
           <p class="pillar__title-fr">{pillar.titleFr}</p>
 
-          <!-- Spanish title -->
+          <!-- Main title -->
           <h3 class="pillar__title-es" id={`pillar-title-${pillar.step}`}>
             {pillar.titleEs}
           </h3>

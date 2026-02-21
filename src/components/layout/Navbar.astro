@@ -1,11 +1,28 @@
 ---
 import { Icon } from "astro-icon/components";
+import { getLangFromUrl, useTranslations, getRouteFromUrl, languages } from "../../i18n/utils";
+import type { Lang } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url) as Lang;
+const t = useTranslations(lang);
+const nav = t("nav");
+
+// Build anchor prefix: '' for es (default), '/en' or '/fr' for others
+const prefix = lang === "es" ? "" : `/${lang}`;
+
+// Language switcher URLs
+const langUrls = Object.keys(languages).map((l) => ({
+  code: l as Lang,
+  label: languages[l as Lang],
+  href: getRouteFromUrl(Astro.url, l as Lang),
+  active: l === lang,
+}));
 ---
 
 <header class="navbar" id="navbar" role="banner">
     <div class="navbar__inner container">
         <!-- Logo -->
-        <a href="/" class="navbar__logo" aria-label="Miprofe — Inicio">
+        <a href={`${prefix}/`} class="navbar__logo" aria-label={nav.logoAriaLabel}>
             <Icon
                 name="tabler:sparkles"
                 class="navbar__logo-icon"
@@ -15,24 +32,38 @@ import { Icon } from "astro-icon/components";
         </a>
 
         <!-- Desktop nav -->
-        <nav class="navbar__nav" aria-label="Navegación principal">
-            <a href="/#inicio" class="navbar__link">Inicio</a>
-            <a href="/#sobre-mi" class="navbar__link">Sobre mí</a>
-            <a href="/#cursos" class="navbar__link">Cursos</a>
-            <a href="/#metodologia" class="navbar__link">Metodología</a>
-            <a href="/blog" class="navbar__link">Blog</a>
-            <a href="/#contacto" class="navbar__link">Contacto</a>
+        <nav class="navbar__nav" aria-label={nav.navAriaLabel}>
+            <a href={`${prefix}/#inicio`} class="navbar__link">{nav.home}</a>
+            <a href={`${prefix}/#sobre-mi`} class="navbar__link">{nav.about}</a>
+            <a href={`${prefix}/#cursos`} class="navbar__link">{nav.courses}</a>
+            <a href={`${prefix}/#metodologia`} class="navbar__link">{nav.methodology}</a>
+            <a href={`${prefix}/blog`} class="navbar__link">{nav.blog}</a>
+            <a href={`${prefix}/#contacto`} class="navbar__link">{nav.contact}</a>
         </nav>
 
+        <!-- Language switcher (desktop) -->
+        <div class="navbar__lang-switcher" aria-label={nav.langSwitcher}>
+            {langUrls.map(({ code, label, href, active }) => (
+                <a
+                    href={href}
+                    class:list={["lang-btn", { "lang-btn--active": active }]}
+                    aria-current={active ? "true" : undefined}
+                    hreflang={code}
+                    title={label}
+                >
+                    {code.toUpperCase()}
+                </a>
+            ))}
+        </div>
+
         <!-- CTA -->
-        <a href="/agendar" class="btn btn--primary navbar__cta">Agendar clase</a
-        >
+        <a href={`${prefix}/agendar`} class="btn btn--primary navbar__cta">{nav.cta}</a>
 
         <!-- Hamburger -->
         <button
             class="navbar__hamburger"
             id="hamburger-btn"
-            aria-label="Abrir menú"
+            aria-label={nav.openMenu}
             aria-expanded="false"
             aria-controls="mobile-menu"
         >
@@ -49,26 +80,31 @@ import { Icon } from "astro-icon/components";
     id="mobile-menu"
     aria-hidden="true"
     role="dialog"
-    aria-label="Menú de navegación"
+    aria-label={nav.menuAriaLabel}
 >
-    <nav class="mobile-menu__nav" aria-label="Navegación móvil">
-        <a href="/#inicio" class="mobile-menu__link" data-close-menu>Inicio</a>
-        <a href="/#sobre-mi" class="mobile-menu__link" data-close-menu
-            >Sobre mí</a
-        >
-        <a href="/#cursos" class="mobile-menu__link" data-close-menu>Cursos</a>
-        <a href="/#metodologia" class="mobile-menu__link" data-close-menu
-            >Metodología</a
-        >
-        <a href="/blog" class="mobile-menu__link" data-close-menu>Blog</a>
-        <a href="/#contacto" class="mobile-menu__link" data-close-menu
-            >Contacto</a
-        >
-        <a
-            href="/agendar"
-            class="btn btn--primary mobile-menu__cta"
-            data-close-menu>Agendar clase</a
-        >
+    <nav class="mobile-menu__nav" aria-label={nav.mobileAriaLabel}>
+        <a href={`${prefix}/#inicio`} class="mobile-menu__link" data-close-menu>{nav.home}</a>
+        <a href={`${prefix}/#sobre-mi`} class="mobile-menu__link" data-close-menu>{nav.about}</a>
+        <a href={`${prefix}/#cursos`} class="mobile-menu__link" data-close-menu>{nav.courses}</a>
+        <a href={`${prefix}/#metodologia`} class="mobile-menu__link" data-close-menu>{nav.methodology}</a>
+        <a href={`${prefix}/blog`} class="mobile-menu__link" data-close-menu>{nav.blog}</a>
+        <a href={`${prefix}/#contacto`} class="mobile-menu__link" data-close-menu>{nav.contact}</a>
+        <a href={`${prefix}/agendar`} class="btn btn--primary mobile-menu__cta" data-close-menu>{nav.cta}</a>
+
+        <!-- Language switcher (mobile) -->
+        <div class="mobile-menu__lang" aria-label={nav.langSwitcher}>
+            {langUrls.map(({ code, label, href, active }) => (
+                <a
+                    href={href}
+                    class:list={["lang-btn", "lang-btn--mobile", { "lang-btn--active": active }]}
+                    aria-current={active ? "true" : undefined}
+                    hreflang={code}
+                    data-close-menu
+                >
+                    {label}
+                </a>
+            ))}
+        </div>
     </nav>
 </div>
 
@@ -164,6 +200,58 @@ import { Icon } from "astro-icon/components";
 
     .navbar__link:hover::after {
         transform: scaleX(1);
+    }
+
+    /* ── Language switcher ─────────────────────────────────────── */
+    .navbar__lang-switcher {
+        display: none;
+        align-items: center;
+        gap: 4px;
+    }
+
+    @media (min-width: 1024px) {
+        .navbar__lang-switcher {
+            display: flex;
+        }
+    }
+
+    .lang-btn {
+        font-family: var(--font-body);
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        padding: 3px 6px;
+        border-radius: var(--radius-sm);
+        border: 1px solid transparent;
+        transition:
+            color var(--transition-base),
+            border-color var(--transition-base),
+            background var(--transition-base);
+    }
+
+    .lang-btn:hover {
+        color: var(--accent-light);
+        border-color: rgba(187, 153, 255, 0.3);
+    }
+
+    .lang-btn--active {
+        color: var(--accent-light);
+        border-color: rgba(187, 153, 255, 0.5);
+        background: rgba(187, 153, 255, 0.08);
+    }
+
+    .lang-btn--mobile {
+        font-size: var(--text-sm);
+        padding: 6px 14px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: var(--color-white);
+    }
+
+    .lang-btn--mobile.lang-btn--active {
+        border-color: var(--accent-light);
+        color: var(--accent-light);
     }
 
     /* ── CTA button ────────────────────────────────────────────── */
@@ -276,6 +364,14 @@ import { Icon } from "astro-icon/components";
 
     .mobile-menu__cta {
         margin-top: var(--space-2);
+    }
+
+    .mobile-menu__lang {
+        display: flex;
+        gap: var(--space-2);
+        margin-top: var(--space-3);
+        padding-top: var(--space-3);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 </style>
 

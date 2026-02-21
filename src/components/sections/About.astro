@@ -1,6 +1,12 @@
 ---
 import SectionHeader from "../ui/SectionHeader.astro";
 import Badge from "../ui/Badge.astro";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import type { Lang } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url) as Lang;
+const t = useTranslations(lang);
+const a = t("about");
 ---
 
 <section class="about section" id="sobre-mi" aria-labelledby="about-title">
@@ -16,7 +22,7 @@ import Badge from "../ui/Badge.astro";
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                         class="about__image-placeholder"
-                        aria-label="Foto de la profesora"
+                        aria-label={a.photoAlt}
                     >
                         <rect
                             width="400"
@@ -59,43 +65,38 @@ import Badge from "../ui/Badge.astro";
             <!-- Content block -->
             <div class="about__content reveal">
                 <SectionHeader
-                    eyebrow="À propos de moi"
-                    title="Sobre mí"
+                    eyebrow={a.eyebrow}
+                    title={a.title}
                     align="left"
                 />
 
-                <p class="about__bio">
-                    Soy filóloga en lengua francesa y llevo más de 5 años
-                    enseñando a adultos a comunicarse con fluidez, confianza y
-                    autenticidad. Para mí, aprender francés es también descubrir
-                    una forma diferente de ver el mundo.
-                </p>
+                <p class="about__bio">{a.bio}</p>
 
                 <!-- Credentials -->
                 <div
                     class="about__credentials"
                     role="list"
-                    aria-label="Credenciales"
+                    aria-label={a.credentialsAriaLabel}
                 >
                     <div role="listitem">
                         <Badge
                             icon="tabler:school"
-                            label="Filóloga en Francés"
+                            label={a.badge1}
                         />
                     </div>
                     <div role="listitem">
                         <Badge
                             icon="tabler:certificate"
-                            label="DALF C1 Certificada"
+                            label={a.badge2}
                         />
                     </div>
                     <div role="listitem">
-                        <Badge icon="tabler:star" label="+200 estudiantes" />
+                        <Badge icon="tabler:star" label={a.badge3} />
                     </div>
                     <div role="listitem">
                         <Badge
                             icon="tabler:world"
-                            label="Bogotá · Online LATAM"
+                            label={a.badge4}
                         />
                     </div>
                 </div>
@@ -103,7 +104,7 @@ import Badge from "../ui/Badge.astro";
                 <!-- Pull quote -->
                 <figure
                     class="about__pullquote"
-                    aria-label="Cita inspiracional"
+                    aria-label={a.quoteAriaLabel}
                 >
                     <div class="about__pullquote-guillemets" aria-hidden="true">
                         «

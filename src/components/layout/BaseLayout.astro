@@ -3,6 +3,8 @@ import "../../styles/global.css";
 import Navbar from "./Navbar.astro";
 import Footer from "./Footer.astro";
 import { SEO } from "astro-seo";
+import { getLangFromUrl, useTranslations, getCanonicalForLang, LOCALES } from "../../i18n/utils";
+import type { Lang } from "../../i18n/utils";
 
 interface Props {
     title?: string;
@@ -11,24 +13,99 @@ interface Props {
     canonical?: string;
 }
 
+// ── Locale detection ─────────────────────────────────────────────────────────
+const lang = getLangFromUrl(Astro.url) as Lang;
+const t = useTranslations(lang);
+const seoDict = t("seo");
+
 const {
-    title = "Miprofe | Profesora de Francés en Bogotá y Online",
-    description = "Clases de francés personalizadas en Bogotá y online para adultos. Filóloga certificada DALF. Preparación DELF/DALF, negocios y viajes. Primera clase 100% gratis.",
+    title = seoDict.title,
+    description = seoDict.description,
     image = "/images/og-image.jpg",
     canonical = Astro.url.href,
 } = Astro.props;
 
 const fullTitle = title.includes("Miprofe") ? title : `${title} | Miprofe`;
+
+// ── Hreflang URLs ─────────────────────────────────────────────────────────────
+const siteUrl = import.meta.env.SITE ?? "https://miprofe.com";
+
+const hreflangLinks = LOCALES.map((locale) => ({
+    rel: "alternate",
+    hreflang: locale === "es" ? "es-CO" : locale === "en" ? "en-US" : "fr-FR",
+    href: getCanonicalForLang(siteUrl, Astro.url, locale as Lang),
+}));
+
+// x-default → English version (best fallback for unmatched regions)
+const xDefaultHref = getCanonicalForLang(siteUrl, Astro.url, "en");
+
+// ── JSON-LD Structured Data ───────────────────────────────────────────────────
+const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Miprofe",
+    jobTitle: lang === "es"
+        ? "Profesora de Francés"
+        : lang === "en"
+        ? "French Language Teacher"
+        : "Professeure de Français",
+    description: description,
+    knowsLanguage: ["es", "en", "fr"],
+    address: {
+        "@type": "PostalAddress",
+        addressLocality: "Bogotá",
+        addressCountry: "CO",
+    },
+    url: siteUrl,
+    sameAs: [
+        "https://linkedin.com",
+        "https://instagram.com",
+        "https://youtube.com",
+    ],
+};
+
+const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: lang === "es"
+        ? "Clases de Francés"
+        : lang === "en"
+        ? "French Classes"
+        : "Cours de Français",
+    description: description,
+    provider: {
+        "@type": "Person",
+        name: "Miprofe",
+    },
+    areaServed: {
+        "@type": "Place",
+        name: "Worldwide",
+    },
+    availableChannel: {
+        "@type": "ServiceChannel",
+        serviceUrl: siteUrl,
+    },
+    inLanguage: lang,
+};
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+        <!-- ── Hreflang tags (injected for every locale) ── -->
+        {hreflangLinks.map(({ rel, hreflang, href }) => (
+            <link rel={rel} hreflang={hreflang} href={href} />
+        ))}
+        <!-- x-default → English (best fallback for unmatched regions) -->
+        <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
+
+        <!-- ── astro-seo: dynamic title, description, OG, Twitter ── -->
         <SEO
             title={fullTitle}
             description={description}
@@ -42,11 +119,11 @@ const fullTitle = title.includes("Miprofe") ? title : `${title} | Miprofe`;
                 },
                 optional: {
                     description,
-                    locale: "es_CO",
+                    locale: seoDict.ogLocale,
                     siteName: "Miprofe",
                 },
                 image: {
-                    alt: "Miprofe — Profesora de Francés en Bogotá",
+                    alt: seoDict.ogImageAlt,
                     width: 1200,
                     height: 630,
                 },
@@ -57,7 +134,7 @@ const fullTitle = title.includes("Miprofe") ? title : `${title} | Miprofe`;
                 title: fullTitle,
                 description,
                 image,
-                imageAlt: "Miprofe — Profesora de Francés",
+                imageAlt: seoDict.twitterImageAlt,
             }}
             extend={{
                 meta: [
@@ -68,6 +145,15 @@ const fullTitle = title.includes("Miprofe") ? title : `${title} | Miprofe`;
                 link: [{ rel: "sitemap", href: "/sitemap-index.xml" }],
             }}
         />
+
+        <!-- ── JSON-LD: Person schema ── -->
+        <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+
+        <!-- ── JSON-LD: Service schema ── -->
+        <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+
+        <!-- Additional head slot (for page-specific overrides) -->
+        <slot name="head" />
     </head>
     <body>
         <Navbar />

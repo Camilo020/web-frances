@@ -1,4 +1,8 @@
 ---
+/**
+ * Root index — default locale "es" (no URL prefix).
+ * All UI components receive the locale via Astro.currentLocale.
+ */
 import BaseLayout from "../components/layout/BaseLayout.astro";
 import Hero from "../components/sections/Hero.astro";
 import About from "../components/sections/About.astro";
@@ -11,28 +15,6 @@ import Divider from "../components/ui/Divider.astro";
 ---
 
 <BaseLayout>
-	<!-- JSON-LD Person schema -->
-	<script type="application/ld+json" slot="head">
-		{
-			"@context": "https://schema.org",
-			"@type": "Person",
-			"name": "Miprofe",
-			"jobTitle": "Profesora de Francés",
-			"description": "Filóloga certificada DALF C1. Clases de francés para adultos — DELF/DALF, negocios y viajes. Bogotá y online.",
-			"address": {
-				"@type": "PostalAddress",
-				"addressLocality": "Bogotá",
-				"addressCountry": "CO"
-			},
-			"url": "https://miprofe.com",
-			"sameAs": [
-				"https://linkedin.com",
-				"https://instagram.com",
-				"https://youtube.com"
-			]
-		}
-	</script>
-
 	<Hero />
 	<Divider style="fleur" />
 	<About />

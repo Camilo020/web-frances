@@ -1,6 +1,13 @@
 ---
 import Button from "../ui/Button.astro";
 import { Icon } from "astro-icon/components";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import type { Lang } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url) as Lang;
+const t = useTranslations(lang);
+const h = t("hero");
+const prefix = lang === "es" ? "" : `/${lang}`;
 ---
 
 <section class="hero" id="inicio" aria-label="Hero — Inicio">
@@ -41,37 +48,30 @@ import { Icon } from "astro-icon/components";
                     class="hero__eyebrow-icon"
                     aria-hidden="true"
                 />
-                Filóloga · Profesora certificada · Bogotá &amp; Online
+                {h.eyebrow}
             </p>
 
             <h1 class="hero__h1">
-                <span class="hero__h1-line1">Parlez-vous</span>
-                <span class="hero__h1-line2 gradient-text">français&nbsp;?</span
-                >
+                <span class="hero__h1-line1">{h.h1Line1}</span>
+                <span class="hero__h1-line2 gradient-text">{h.h1Line2}</span>
             </h1>
 
             <span class="deco-rule" aria-hidden="true"></span>
 
-            <p class="hero__subtitle">
-                Clases de francés personalizadas para adultos &mdash; viajes,
-                negocios o certificación DELF/DALF. Presencial en Bogotá y en
-                línea para todo LATAM.
-            </p>
+            <p class="hero__subtitle">{h.subtitle}</p>
 
             <div class="hero__cta-row">
-                <Button href="/#cursos" variant="primary" size="lg"
-                    >Ver cursos →</Button
+                <Button href={`${prefix}/#cursos`} variant="primary" size="lg"
+                    >{h.ctaPrimary}</Button
                 >
-                <Button href="/agendar" variant="outline" size="lg"
-                    >Clase gratuita</Button
+                <Button href={`${prefix}/agendar`} variant="outline" size="lg"
+                    >{h.ctaSecondary}</Button
                 >
             </div>
 
             <div class="hero__proof stagger-4 animate-fade-in">
-                <div class="hero__stars" aria-label="5 estrellas">★★★★★</div>
-                <p class="hero__proof-text">
-                    Más de 200 estudiantes · 5 años de experiencia
-                </p>
+                <div class="hero__stars" aria-label={h.proofStars}>★★★★★</div>
+                <p class="hero__proof-text">{h.proofText}</p>
             </div>
         </div>
 
@@ -84,7 +84,7 @@ import { Icon } from "astro-icon/components";
             <div class="hero__blob-wrap">
                 <div
                     class="hero__blob-img"
-                    aria-label="Foto de la profesora de francés"
+                    aria-label={h.blobAlt}
                 >
                     <div class="hero__blob-placeholder" aria-hidden="true">
                         <!-- Placeholder gradient when no photo provided -->
@@ -136,27 +136,27 @@ import { Icon } from "astro-icon/components";
             <!-- Floating badge 1 -->
             <div
                 class="hero__badge hero__badge--top animate-float"
-                aria-label="Certificación DALF C1"
+                aria-label={h.badge1Aria}
             >
                 <Icon
                     name="tabler:star-filled"
                     class="hero__badge-icon"
                     aria-hidden="true"
                 />
-                <span class="hero__badge-text">DALF C1 Certifiée</span>
+                <span class="hero__badge-text">{h.badge1}</span>
             </div>
 
             <!-- Floating badge 2 -->
             <div
                 class="hero__badge hero__badge--bottom animate-float-reverse"
-                aria-label="5 años de experiencia"
+                aria-label={h.badge2Aria}
             >
                 <Icon
                     name="tabler:book"
                     class="hero__badge-icon"
                     aria-hidden="true"
                 />
-                <span class="hero__badge-text">5 ans d'expérience</span>
+                <span class="hero__badge-text">{h.badge2}</span>
             </div>
         </div>
     </div>
