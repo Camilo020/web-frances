@@ -15,28 +15,28 @@ export type Lang = keyof typeof languages;
 // ── SEO / Meta ──────────────────────────────────────────────────────────────
 const seo = {
   es: {
-    title: 'Miprofe | Profesora de Francés en Bogotá y Online',
+    title: 'OuiPaula | Profesora de Francés en Bogotá y Online',
     description:
       'Clases de francés personalizadas en Bogotá y online para adultos. Filóloga certificada DALF. Preparación DELF/DALF, negocios y viajes. Primera clase 100% gratis.',
     ogLocale: 'es_CO',
-    ogImageAlt: 'Miprofe — Profesora de Francés en Bogotá',
-    twitterImageAlt: 'Miprofe — Profesora de Francés',
+    ogImageAlt: 'OuiPaula | Profesora de Francés en Bogotá y Online',
+    twitterImageAlt: 'OuiPaula | Profesora de Francés en Bogotá y Online',
   },
   en: {
-    title: 'Miprofe | French Teacher in Bogotá & Online',
+    title: 'OuiPaula | French Teacher in Bogotá & Online',
     description:
       'Personalized French classes in Bogotá and online for adults. DALF-certified philologist. DELF/DALF prep, business French, and travel. First class 100% free.',
     ogLocale: 'en_US',
-    ogImageAlt: 'Miprofe — French Teacher in Bogotá',
-    twitterImageAlt: 'Miprofe — French Teacher',
+    ogImageAlt: 'OuiPaula | French Teacher in Bogotá & Online',
+    twitterImageAlt: 'OuiPaula | French Teacher in Bogotá & Online',
   },
   fr: {
-    title: 'Miprofe | Professeure de Français à Bogotá & en Ligne',
+    title: 'OuiPaula | Professeure de Français à Bogotá & en Ligne',
     description:
       'Cours de français personnalisés à Bogotá et en ligne pour adultes. Philologue certifiée DALF. Préparation DELF/DALF, français des affaires et voyages. Premier cours 100% gratuit.',
     ogLocale: 'fr_FR',
-    ogImageAlt: 'Miprofe — Professeure de Français à Bogotá',
-    twitterImageAlt: 'Miprofe — Professeure de Français',
+    ogImageAlt: 'OuiPaula | Professeure de Français à Bogotá & en Ligne',
+    twitterImageAlt: 'OuiPaula | Professeure de Français à Bogotá & en Ligne',
   },
 } as const;
 
@@ -50,7 +50,7 @@ const nav = {
     blog: 'Blog',
     contact: 'Contacto',
     cta: 'Agendar clase',
-    logoAriaLabel: 'Miprofe — Inicio',
+    logoAriaLabel: 'OuiPaula — Inicio',
     navAriaLabel: 'Navegación principal',
     mobileAriaLabel: 'Navegación móvil',
     menuAriaLabel: 'Menú de navegación',
@@ -65,7 +65,7 @@ const nav = {
     blog: 'Blog',
     contact: 'Contact',
     cta: 'Book a class',
-    logoAriaLabel: 'Miprofe — Home',
+    logoAriaLabel: 'OuiPaula — Home',
     navAriaLabel: 'Main navigation',
     mobileAriaLabel: 'Mobile navigation',
     menuAriaLabel: 'Navigation menu',
@@ -80,7 +80,7 @@ const nav = {
     blog: 'Blog',
     contact: 'Contact',
     cta: 'Réserver un cours',
-    logoAriaLabel: 'Miprofe — Accueil',
+    logoAriaLabel: 'OuiPaula — Accueil',
     navAriaLabel: 'Navigation principale',
     mobileAriaLabel: 'Navigation mobile',
     menuAriaLabel: 'Menu de navigation',
@@ -587,10 +587,10 @@ const footer = {
       blog: 'Blog',
       book: 'Agendar clase',
     },
-    copyright: '© {year} Miprofe. Todos los derechos reservados.',
+    copyright: '© {year} OuiPaula. Todos los derechos reservados.',
     madeWith: 'Hecho con',
     madeWithSuffix: 'en Bogotá',
-    logoAriaLabel: 'Miprofe — Inicio',
+    logoAriaLabel: 'OuiPaula — Inicio',
   },
   en: {
     tagline:
@@ -605,10 +605,10 @@ const footer = {
       blog: 'Blog',
       book: 'Book a class',
     },
-    copyright: '© {year} Miprofe. All rights reserved.',
+    copyright: '© {year} OuiPaula. All rights reserved.',
     madeWith: 'Made with',
     madeWithSuffix: 'in Bogotá',
-    logoAriaLabel: 'Miprofe — Home',
+    logoAriaLabel: 'OuiPaula — Home',
   },
   fr: {
     tagline:
@@ -623,10 +623,10 @@ const footer = {
       blog: 'Blog',
       book: 'Réserver un cours',
     },
-    copyright: '© {year} Miprofe. Tous droits réservés.',
+    copyright: '© {year} OuiPaula. Tous droits réservés.',
     madeWith: 'Fait avec',
     madeWithSuffix: 'à Bogotá',
-    logoAriaLabel: 'Miprofe — Accueil',
+    logoAriaLabel: 'OuiPaula — Accueil',
   },
 } as const;
 

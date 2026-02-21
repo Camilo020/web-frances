@@ -25,10 +25,10 @@ const {
     canonical = Astro.url.href,
 } = Astro.props;
 
-const fullTitle = title.includes("Miprofe") ? title : `${title} | Miprofe`;
+const fullTitle = title.includes("OuiPaula") ? title : `${title} | OuiPaula`;
 
 // ── Hreflang URLs ─────────────────────────────────────────────────────────────
-const siteUrl = import.meta.env.SITE ?? "https://miprofe.com";
+const siteUrl = import.meta.env.SITE ?? "https://ouipaula.com";
 
 const hreflangLinks = LOCALES.map((locale) => ({
     rel: "alternate",
@@ -43,7 +43,7 @@ const xDefaultHref = getCanonicalForLang(siteUrl, Astro.url, "en");
 const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Miprofe",
+    name: "OuiPaula",
     jobTitle: lang === "es"
         ? "Profesora de Francés"
         : lang === "en"
@@ -75,7 +75,7 @@ const serviceSchema = {
     description: description,
     provider: {
         "@type": "Person",
-        name: "Miprofe",
+        name: "OuiPaula",
     },
     areaServed: {
         "@type": "Place",
@@ -120,7 +120,7 @@ const serviceSchema = {
                 optional: {
                     description,
                     locale: seoDict.ogLocale,
-                    siteName: "Miprofe",
+                    siteName: "OuiPaula",
                 },
                 image: {
                     alt: seoDict.ogImageAlt,
@@ -130,7 +130,7 @@ const serviceSchema = {
             }}
             twitter={{
                 card: "summary_large_image",
-                site: "@miprofe",
+                site: "@ouipaula",
                 title: fullTitle,
                 description,
                 image,
@@ -140,7 +140,7 @@ const serviceSchema = {
                 meta: [
                     { name: "theme-color", content: "#604099" },
                     { name: "robots", content: "index, follow" },
-                    { name: "author", content: "Miprofe" },
+                    { name: "author", content: "OuiPaula" },
                 ],
                 link: [{ rel: "sitemap", href: "/sitemap-index.xml" }],
             }}
