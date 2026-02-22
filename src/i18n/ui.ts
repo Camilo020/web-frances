@@ -17,7 +17,7 @@ const seo = {
   es: {
     title: 'OuiPaula | Profesora de Francés en Bogotá y Online',
     description:
-      'Clases de francés personalizadas en Bogotá y online para adultos. Filóloga certificada DALF. Preparación DELF/DALF, negocios y viajes. Primera clase 100% gratis.',
+      'Clases de francés personalizadas en Bogotá y online para adultos. Filóloga certificada DALF. Preparación DELF/DALF, negocios y viajes.',
     ogLocale: 'es_CO',
     ogImageAlt: 'OuiPaula | Profesora de Francés en Bogotá y Online',
     twitterImageAlt: 'OuiPaula | Profesora de Francés en Bogotá y Online',
@@ -25,7 +25,7 @@ const seo = {
   en: {
     title: 'OuiPaula | French Teacher in Bogotá & Online',
     description:
-      'Personalized French classes in Bogotá and online for adults. DALF-certified philologist. DELF/DALF prep, business French, and travel. First class 100% free.',
+      'Personalized French classes in Bogotá and online for adults. DALF-certified philologist. DELF/DALF prep, business French, and travel.',
     ogLocale: 'en_US',
     ogImageAlt: 'OuiPaula | French Teacher in Bogotá & Online',
     twitterImageAlt: 'OuiPaula | French Teacher in Bogotá & Online',
@@ -33,7 +33,7 @@ const seo = {
   fr: {
     title: 'OuiPaula | Professeure de Français à Bogotá & en Ligne',
     description:
-      'Cours de français personnalisés à Bogotá et en ligne pour adultes. Philologue certifiée DALF. Préparation DELF/DALF, français des affaires et voyages. Premier cours 100% gratuit.',
+      'Cours de français personnalisés à Bogotá et en ligne pour adultes. Philologue certifiée DALF. Préparation DELF/DALF, français des affaires et voyages.',
     ogLocale: 'fr_FR',
     ogImageAlt: 'OuiPaula | Professeure de Français à Bogotá & en Ligne',
     twitterImageAlt: 'OuiPaula | Professeure de Français à Bogotá & en Ligne',
@@ -98,7 +98,7 @@ const hero = {
     subtitle:
       'Clases de francés personalizadas para adultos — viajes, negocios o certificación DELF/DALF. Presencial en Bogotá y en línea para todo LATAM.',
     ctaPrimary: 'Ver cursos →',
-    ctaSecondary: 'Clase gratuita',
+    ctaSecondary: 'Agendar Clase',
     proofStars: '5 estrellas',
     proofText: 'Más de 200 estudiantes · 5 años de experiencia',
     blobAlt: 'Foto de la profesora de francés',
@@ -114,7 +114,7 @@ const hero = {
     subtitle:
       'Personalized French classes for adults — travel, business, or DELF/DALF certification. In-person in Bogotá and online for all of LATAM.',
     ctaPrimary: 'See courses →',
-    ctaSecondary: 'Free class',
+    ctaSecondary: 'Book Class',
     proofStars: '5 stars',
     proofText: 'Over 200 students · 5 years of experience',
     blobAlt: 'Photo of the French teacher',
@@ -130,7 +130,7 @@ const hero = {
     subtitle:
       "Cours de français personnalisés pour adultes — voyages, affaires ou certification DELF/DALF. En présentiel à Bogotá et en ligne pour toute l'Amérique latine.",
     ctaPrimary: 'Voir les cours →',
-    ctaSecondary: 'Cours gratuit',
+    ctaSecondary: 'Réserver un Cours',
     proofStars: '5 étoiles',
     proofText: "Plus de 200 étudiants · 5 ans d'expérience",
     blobAlt: 'Photo de la professeure de français',
@@ -440,7 +440,7 @@ const contact = {
   es: {
     eyebrow: 'Prendre rendez-vous',
     title: '¿Lista para empezar?',
-    titleStandalone: 'Agenda tu clase gratuita',
+    titleStandalone: 'Agenda tu clase',
     subtitle:
       'Agenda tu primera clase de prueba completamente gratis. Sin compromiso.',
     formAriaLabel: 'Formulario para agendar clase',
@@ -457,12 +457,12 @@ const contact = {
     fieldMessage: 'Mensaje (opcional)',
     fieldMessagePlaceholder: 'Cuéntame un poco más sobre ti y tus objetivos...',
     checkboxText: 'Acepto recibir información sobre cursos y novedades',
-    submitBtn: 'Agendar mi clase gratuita →',
+    submitBtn: 'Agendar mi clase→',
     successTitle: '¡Mensaje enviado!',
     successText: 'Te respondo en menos de 24 horas. ¡Bienvenida al francés!',
     reassuranceQuote: '«Respondo en menos de 24 horas.»',
     reassuranceSub:
-      'Agenda tu primera sesión hoy. Sin compromiso, sin pago anticipado.',
+      'Agenda tu primera sesión hoy.',
     contactInfoAriaLabel: 'Información de contacto',
     socialsAriaLabel: 'Redes sociales',
     levelOptions: [
@@ -485,8 +485,8 @@ const contact = {
   en: {
     eyebrow: 'Book a session',
     title: 'Ready to start?',
-    titleStandalone: 'Book your free class',
-    subtitle: 'Schedule your first trial class completely free. No commitment.',
+    titleStandalone: 'Book your class',
+    subtitle: 'Schedule your first trial class.',
     formAriaLabel: 'Form to book a class',
     fieldName: 'Full name',
     fieldNamePlaceholder: 'Your full name',
@@ -501,11 +501,11 @@ const contact = {
     fieldMessage: 'Message (optional)',
     fieldMessagePlaceholder: 'Tell me a bit more about yourself and your goals...',
     checkboxText: 'I agree to receive information about courses and updates',
-    submitBtn: 'Book my free class →',
+    submitBtn: 'Book my class →',
     successTitle: 'Message sent!',
     successText: "I'll reply within 24 hours. Welcome to French!",
     reassuranceQuote: '"I reply within 24 hours."',
-    reassuranceSub: 'Book your first session today. No commitment, no upfront payment.',
+    reassuranceSub: 'Book your first session today.',
     contactInfoAriaLabel: 'Contact information',
     socialsAriaLabel: 'Social media',
     levelOptions: [
@@ -528,9 +528,9 @@ const contact = {
   fr: {
     eyebrow: 'Prendre rendez-vous',
     title: 'Prêt(e) à commencer\u00a0?',
-    titleStandalone: 'Réservez votre cours gratuit',
+    titleStandalone: 'Réservez votre cours',
     subtitle:
-      "Planifiez votre premier cours d'essai entièrement gratuit. Sans engagement.",
+      "Planifiez votre premier cours d'essai entièrement.",
     formAriaLabel: 'Formulaire pour réserver un cours',
     fieldName: 'Nom complet',
     fieldNamePlaceholder: 'Votre nom complet',
@@ -545,12 +545,12 @@ const contact = {
     fieldMessage: 'Message (facultatif)',
     fieldMessagePlaceholder: 'Parlez-moi un peu de vous et de vos objectifs...',
     checkboxText: "J'accepte de recevoir des informations sur les cours et les nouveautés",
-    submitBtn: 'Réserver mon cours gratuit →',
+    submitBtn: 'Réserver mon cours→',
     successTitle: 'Message envoyé\u00a0!',
     successText: 'Je vous réponds en moins de 24 heures. Bienvenue dans le français\u00a0!',
     reassuranceQuote: '«\u00a0Je réponds en moins de 24 heures.\u00a0»',
     reassuranceSub:
-      "Réservez votre première séance aujourd'hui. Sans engagement, sans paiement anticipé.",
+      "Réservez votre première séance aujourd'hui.",
     contactInfoAriaLabel: 'Informations de contact',
     socialsAriaLabel: 'Réseaux sociaux',
     levelOptions: [

@@ -49,4 +49,4 @@ Sin un objetivo concreto — un viaje, un examen DELF, una oportunidad laboral �
 
 ## Conclusion
 
-Éviter ces erreurs dès le début te permettra d'avancer beaucoup plus vite. Si quieres una guía personalizada para tu situación, ¡agenda una clase de prueba gratuita y lo trabajamos juntos!
+Éviter ces erreurs dès le début te permettra d'avancer beaucoup plus vite. Si quieres una guía personalizada para tu situación, ¡agenda una clase y lo trabajamos juntos!
