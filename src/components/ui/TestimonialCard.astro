@@ -10,6 +10,7 @@ const { testimonial } = Astro.props;
 
 <article
     class="testimonial-card"
+    data-testimonial-card
     aria-label={`Testimonio de ${testimonial.studentName}`}
 >
     <!-- Decorative guillemet -->
@@ -21,9 +22,20 @@ const { testimonial } = Astro.props;
     </div>
 
     <!-- Quote -->
-    <blockquote class="testimonial-card__quote">
+    <blockquote class="testimonial-card__quote" data-quote>
         {testimonial.quote}
     </blockquote>
+
+    <!-- Toggle button -->
+    <button
+        type="button"
+        class="testimonial-card__toggle"
+        data-toggle
+        aria-expanded="false"
+        aria-label="Ver más del testimonio"
+    >
+        <span data-toggle-text>Ver más</span>
+    </button>
 
     <!-- Avatar row -->
     <footer class="testimonial-card__footer">
@@ -79,7 +91,7 @@ const { testimonial } = Astro.props;
         letter-spacing: 2px;
     }
 
-    /* Quote */
+    /* Quote with line-clamp */
     .testimonial-card__quote {
         font-family: var(--font-heading);
         font-style: italic;
@@ -90,6 +102,50 @@ const { testimonial } = Astro.props;
         border: none;
         padding: 0;
         margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Expanded state: remove line-clamp */
+    .testimonial-card.is-expanded .testimonial-card__quote {
+        -webkit-line-clamp: unset;
+        overflow: visible;
+    }
+
+    /* Toggle button */
+    .testimonial-card__toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-1);
+        padding: var(--space-2) 0;
+        margin-top: calc(var(--space-1) * -1);
+        background: transparent;
+        border: none;
+        color: var(--accent-light);
+        font-family: var(--font-body);
+        font-size: var(--text-sm);
+        font-weight: 500;
+        cursor: pointer;
+        transition: color var(--transition-fast);
+        align-self: flex-start;
+    }
+
+    .testimonial-card__toggle:hover {
+        color: var(--accent-primary);
+    }
+
+    .testimonial-card__toggle:focus-visible {
+        outline: 2px solid var(--accent-light);
+        outline-offset: 2px;
+        border-radius: var(--radius-sm);
+    }
+
+    /* Hide toggle button when not needed */
+    .testimonial-card__toggle.is-hidden {
+        display: none;
     }
 
     /* Footer */
@@ -129,3 +185,42 @@ const { testimonial } = Astro.props;
         margin-top: 2px;
     }
 </style>
+
+<script>
+    document.addEventListener('click', (e) => {
+        if (!(e.target instanceof Element)) return;
+
+        const toggleBtn = e.target.closest('[data-toggle]');
+        if (!toggleBtn) return;
+
+        const card = toggleBtn.closest('[data-testimonial-card]');
+        if (!card) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        card.classList.toggle('is-expanded');
+        const isExpanded = card.classList.contains('is-expanded');
+
+        toggleBtn.setAttribute('aria-expanded', String(isExpanded));
+
+        const toggleText = toggleBtn.querySelector('[data-toggle-text]');
+        if (toggleText) {
+            toggleText.textContent = isExpanded ? 'Ver menos' : 'Ver más';
+        }
+
+        toggleBtn.setAttribute(
+            'aria-label',
+            isExpanded ? 'Ver menos del testimonio' : 'Ver más del testimonio',
+        );
+    });
+
+    document.querySelectorAll<HTMLElement>('[data-testimonial-card]').forEach((card) => {
+        const toggleBtn = card.querySelector('[data-toggle]');
+        const quoteEl = card.querySelector('[data-quote]');
+
+        if (toggleBtn && quoteEl && quoteEl.scrollHeight <= quoteEl.clientHeight) {
+            toggleBtn.classList.add('is-hidden');
+        }
+    });
+</script>

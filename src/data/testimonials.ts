@@ -24,7 +24,7 @@ export const testimonials: Testimonial[] = [
         studentName: 'Silvia Martinez',
         location: 'Medellín',
         context: 'Francés A2- B2 + Preparación DALF C1',
-        initials: 'CR',
+        initials: 'SM',
     },
     {
         id: 'gomez',
