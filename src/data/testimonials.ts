@@ -27,7 +27,7 @@ export const testimonials: Testimonial[] = [
         initials: 'CR',
     },
     {
-        id: 'laura',
+        id: 'gomez',
         quote:
             'La mejor profesora de francés que he tenido. Tiene una paciencia increíble y hace cada clase interesante y diferente.',
         studentName: 'Laura Gómez',
