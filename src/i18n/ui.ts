@@ -96,7 +96,7 @@ const hero = {
     h1Line1: 'Parlez-vous',
     h1Line2: 'français\u00a0?',
     subtitle:
-      'Clases de francés personalizadas para adultos — viajes, negocios o certificación DELF/DALF. Presencial en Bogotá y en línea para todo LATAM.',
+      'Clases de francés personalizadas para jóvenes y adultos — francés con objetivos académicos o migratorios. Preparación para certificación DELF/DALF y TCF Canadá. En línea para Bogotá y todo LATAM.',
     ctaPrimary: 'Ver cursos →',
     ctaSecondary: 'Agendar Clase',
     proofStars: '5 estrellas',
@@ -146,7 +146,7 @@ const about = {
   es: {
     eyebrow: 'À propos de moi',
     title: 'Sobre mí',
-    bio: 'Soy filóloga en lengua francesa y llevo más de 5 años enseñando a adultos a comunicarse con fluidez, confianza y autenticidad. Para mí, aprender francés es también descubrir una forma diferente de ver el mundo.',
+    bio: 'Soy licenciada en Filología e Idiomas: Francés y cuento con más de 5 años de experiencia enseñando francés a adolescentes y adultos. Mi objetivo es acompañar a los estudiantes en su proceso de aprendizaje, el cual les permite acceder a oportunidades académicas y profesionales internacionales.',
     photoAlt: 'Foto de la profesora',
     badge1: 'Filóloga en Francés',
     badge2: 'DALF C1 Certificada',

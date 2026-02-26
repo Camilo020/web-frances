@@ -12,18 +12,18 @@ export const testimonials: Testimonial[] = [
         id: 'ana',
         quote:
             'Pasé el DELF B2 en el primer intento. La metodología es clara, estructurada y muy motivadora. Nunca pensé que avanzaría tan rápido.',
-        studentName: 'Ana Martínez',
+        studentName: 'Laura Montoya',
         location: 'Bogotá',
-        context: 'Preparación DELF B2',
+        context: 'Francés A1-B2 + Preparación DALF C1',
         initials: 'AM',
     },
     {
         id: 'carlos',
         quote:
             'En solo 3 meses pude comunicarme con fluidez en París. Las clases son dinámicas y siempre adaptadas a lo que yo necesitaba.',
-        studentName: 'Carlos Rodríguez',
+        studentName: 'Silvia Martinez',
         location: 'Medellín',
-        context: 'Clases online · Francés para viajes',
+        context: 'Francés A2- B2 + Preparación DALF C1',
         initials: 'CR',
     },
     {
