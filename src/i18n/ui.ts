@@ -158,7 +158,7 @@ const about = {
   en: {
     eyebrow: 'About me',
     title: 'About me',
-    bio: 'I am a French language philologist with over 5 years of experience teaching adults to communicate fluently, confidently, and authentically. For me, learning French is also discovering a different way of seeing the world.',
+    bio: 'I have a degree in Philology and Languages: French, and I have more than 5 years of experience teaching French to teenagers and adults. My goal is to accompany students in their learning process, which allows them to access international academic and professional opportunities.',
     photoAlt: 'Photo of the teacher',
     badge1: 'French Philologist',
     badge2: 'DALF C1 Certified',
@@ -170,7 +170,7 @@ const about = {
   fr: {
     eyebrow: 'À propos de moi',
     title: 'À propos de moi',
-    bio: "Je suis philologue en langue française et j'enseigne depuis plus de 5 ans à des adultes à communiquer avec fluidité, confiance et authenticité. Pour moi, apprendre le français, c'est aussi découvrir une façon différente de voir le monde.",
+    bio: "Je suis diplômée en philologie et langues étrangères (français) et j'ai plus de 5 ans d'expérience dans l'enseignement du français aux adolescents et aux adultes. Mon objectif est d'accompagner les étudiants dans leur processus d'apprentissage, qui leur permet d'accéder à des opportunités académiques et professionnelles internationales.",
     photoAlt: 'Photo de la professeure',
     badge1: 'Philologue en Français',
     badge2: 'Certifiée DALF C1',
