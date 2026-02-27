@@ -1,9 +1,10 @@
 ---
 import "../../styles/global.css";
+import BaseHead from "./BaseHead.astro";
 import Navbar from "./Navbar.astro";
 import Footer from "./Footer.astro";
-import { SEO } from "astro-seo";
-import { getLangFromUrl, useTranslations, getCanonicalForLang, LOCALES } from "../../i18n/utils";
+import WhatsAppWidget from "../WhatsAppWidget.astro";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 import type { Lang } from "../../i18n/utils";
 
 interface Props {
@@ -13,7 +14,6 @@ interface Props {
     canonical?: string;
 }
 
-// ── Locale detection ─────────────────────────────────────────────────────────
 const lang = getLangFromUrl(Astro.url) as Lang;
 const t = useTranslations(lang);
 const seoDict = t("seo");
@@ -25,133 +25,19 @@ const {
     canonical = Astro.url.href,
 } = Astro.props;
 
-const fullTitle = title.includes("OuiPaula") ? title : `${title} | OuiPaula`;
-
-// ── Hreflang URLs ─────────────────────────────────────────────────────────────
-const siteUrl = import.meta.env.SITE ?? "https://ouipaula.com";
-
-const hreflangLinks = LOCALES.map((locale) => ({
-    rel: "alternate",
-    hreflang: locale === "es" ? "es-CO" : locale === "en" ? "en-US" : "fr-FR",
-    href: getCanonicalForLang(siteUrl, Astro.url, locale as Lang),
-}));
-
-// x-default → English version (best fallback for unmatched regions)
-const xDefaultHref = getCanonicalForLang(siteUrl, Astro.url, "en");
-
-// ── JSON-LD Structured Data ───────────────────────────────────────────────────
-const personSchema = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    name: "OuiPaula",
-    jobTitle: lang === "es"
-        ? "Profesora de Francés"
-        : lang === "en"
-        ? "French Language Teacher"
-        : "Professeure de Français",
-    description: description,
-    knowsLanguage: ["es", "en", "fr"],
-    address: {
-        "@type": "PostalAddress",
-        addressLocality: "Bogotá",
-        addressCountry: "CO",
-    },
-    url: siteUrl,
-    sameAs: [
-        "https://linkedin.com",
-        "https://instagram.com",
-        "https://youtube.com",
-    ],
-};
-
-const serviceSchema = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    name: lang === "es"
-        ? "Clases de Francés"
-        : lang === "en"
-        ? "French Classes"
-        : "Cours de Français",
-    description: description,
-    provider: {
-        "@type": "Person",
-        name: "OuiPaula",
-    },
-    areaServed: {
-        "@type": "Place",
-        name: "Worldwide",
-    },
-    availableChannel: {
-        "@type": "ServiceChannel",
-        serviceUrl: siteUrl,
-    },
-    inLanguage: lang,
-};
+const SITE_NAME = "OuiPaula";
+const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
 ---
 
 <!doctype html>
 <html lang={lang}>
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-        <!-- ── Hreflang tags (injected for every locale) ── -->
-        {hreflangLinks.map(({ rel, hreflang, href }) => (
-            <link rel={rel} hreflang={hreflang} href={href} />
-        ))}
-        <!-- x-default → English (best fallback for unmatched regions) -->
-        <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
-
-        <!-- ── astro-seo: dynamic title, description, OG, Twitter ── -->
-        <SEO
+        <BaseHead
             title={fullTitle}
             description={description}
+            image={image}
             canonical={canonical}
-            openGraph={{
-                basic: {
-                    title: fullTitle,
-                    type: "website",
-                    image,
-                    url: canonical,
-                },
-                optional: {
-                    description,
-                    locale: seoDict.ogLocale,
-                    siteName: "OuiPaula",
-                },
-                image: {
-                    alt: seoDict.ogImageAlt,
-                    width: 1200,
-                    height: 630,
-                },
-            }}
-            twitter={{
-                card: "summary_large_image",
-                site: "@ouipaula",
-                title: fullTitle,
-                description,
-                image,
-                imageAlt: seoDict.twitterImageAlt,
-            }}
-            extend={{
-                meta: [
-                    { name: "theme-color", content: "#604099" },
-                    { name: "robots", content: "index, follow" },
-                    { name: "author", content: "OuiPaula" },
-                ],
-                link: [{ rel: "sitemap", href: "/sitemap-index.xml" }],
-            }}
         />
-
-        <!-- ── JSON-LD: Person schema ── -->
-        <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
-
-        <!-- ── JSON-LD: Service schema ── -->
-        <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
-
         <!-- Additional head slot (for page-specific overrides) -->
         <slot name="head" />
     </head>
@@ -161,6 +47,10 @@ const serviceSchema = {
             <slot />
         </main>
         <Footer />
+        <WhatsAppWidget
+            phoneNumber="573000000000"
+            message="¡Hola Paula! Me interesa agendar mi primera clase de prueba de francés gratis."
+        />
 
         <!-- Global IntersectionObserver for .reveal elements -->
         <script>

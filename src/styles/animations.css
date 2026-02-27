@@ -144,6 +144,17 @@
     }
 }
 
+/* ── Subtle pulse (WhatsApp widget button) ──────────────────── */
+@keyframes subtle-pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.02);
+    }
+}
+
 /* ── Utility animation classes ──────────────────────────────── */
 .animate-float {
     animation: float 4s ease-in-out infinite;
@@ -171,6 +182,14 @@
 
 .animate-pulse-glow {
     animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-subtle-pulse {
+    animation: subtle-pulse 3s ease-in-out infinite;
+}
+
+.animate-subtle-pulse:hover {
+    animation: none;
 }
 
 /* Staggered delays for children */
