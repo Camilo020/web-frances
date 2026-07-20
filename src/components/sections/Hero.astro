@@ -196,7 +196,7 @@ const h = t("hero");
         grid-template-columns: 1fr;
         gap: var(--space-8);
         align-items: center;
-        padding-top: 100px;
+        padding-top: var(--navbar-offset-safe);
         padding-bottom: var(--space-8);
         position: relative;
         z-index: 1;
@@ -206,9 +206,14 @@ const h = t("hero");
         .hero__container {
             grid-template-columns: 55fr 45fr;
             gap: var(--space-8);
-            padding-top: 0;
+            padding-top: var(--navbar-offset-safe);
             min-height: 100svh;
         }
+    }
+
+    /* ── Scroll-anchor offset (prevents navbar overlap on hash nav) ── */
+    [id] {
+        scroll-margin-top: var(--navbar-offset-safe);
     }
 
     /* On mobile: reverse order — visual on top */

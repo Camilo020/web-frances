@@ -67,6 +67,16 @@
 
   /* ── Layout ─────────────────────────────────────────────── */
   --max-width: 1200px;
+  --navbar-height: 72px;
+  --navbar-offset-safe: calc(var(--navbar-height) + var(--space-3));
+}
+
+/* ── Navbar height grows on desktop ────────────────────────── */
+@media (min-width: 1024px) {
+  :root {
+    --navbar-height: 88px;
+    --navbar-offset-safe: calc(var(--navbar-height) + var(--space-4));
+  }
 }
 
 /* ── 2xl screens: scale up ─────────────────────────────────── */
