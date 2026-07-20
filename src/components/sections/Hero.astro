@@ -3,11 +3,11 @@ import Button from "../ui/Button.astro";
 import { Icon } from "astro-icon/components";
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 import type { Lang } from "../../i18n/utils";
+import { ROUTES } from "../../i18n/routes";
 
 const lang = getLangFromUrl(Astro.url) as Lang;
 const t = useTranslations(lang);
 const h = t("hero");
-const prefix = lang === "es" ? "" : `/${lang}`;
 ---
 
 <section class="hero" id="inicio" aria-label="Hero — Inicio">
@@ -61,10 +61,10 @@ const prefix = lang === "es" ? "" : `/${lang}`;
             <p class="hero__subtitle">{h.subtitle}</p>
 
             <div class="hero__cta-row">
-                <Button href={`${prefix}/#cursos`} variant="primary" size="lg"
+                <Button href={`${ROUTES.home[lang]}#cursos`} variant="primary" size="lg"
                     >{h.ctaPrimary}</Button
                 >
-                <Button href={`${prefix}/agendar`} variant="outline" size="lg"
+                <Button href={ROUTES.agendar[lang]} variant="outline" size="lg"
                     >{h.ctaSecondary}</Button
                 >
             </div>

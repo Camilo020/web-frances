@@ -458,8 +458,11 @@ const contact = {
     fieldMessagePlaceholder: 'Cuéntame un poco más sobre ti y tus objetivos...',
     checkboxText: 'Acepto recibir información sobre cursos y novedades',
     submitBtn: 'Agendar mi clase→',
+    sending: 'Enviando…',
     successTitle: '¡Mensaje enviado!',
     successText: 'Te respondo en menos de 24 horas. ¡Bienvenida al francés!',
+    errorTitle: 'Algo salió mal',
+    errorText: 'No se pudo enviar el formulario. Por favor, intenta de nuevo o escríbeme por WhatsApp.',
     reassuranceQuote: '«Respondo en menos de 24 horas.»',
     reassuranceSub:
       'Agenda tu primera sesión hoy.',
@@ -502,8 +505,11 @@ const contact = {
     fieldMessagePlaceholder: 'Tell me a bit more about yourself and your goals...',
     checkboxText: 'I agree to receive information about courses and updates',
     submitBtn: 'Book my class →',
+    sending: 'Sending…',
     successTitle: 'Message sent!',
     successText: "I'll reply within 24 hours. Welcome to French!",
+    errorTitle: 'Something went wrong',
+    errorText: 'The form could not be sent. Please try again or message me on WhatsApp.',
     reassuranceQuote: '"I reply within 24 hours."',
     reassuranceSub: 'Book your first session today.',
     contactInfoAriaLabel: 'Contact information',
@@ -546,8 +552,11 @@ const contact = {
     fieldMessagePlaceholder: 'Parlez-moi un peu de vous et de vos objectifs...',
     checkboxText: "J'accepte de recevoir des informations sur les cours et les nouveautés",
     submitBtn: 'Réserver mon cours→',
+    sending: 'Envoi…',
     successTitle: 'Message envoyé\u00a0!',
     successText: 'Je vous réponds en moins de 24 heures. Bienvenue dans le français\u00a0!',
+    errorTitle: 'Une erreur est survenue',
+    errorText: "Le formulaire n'a pas pu être envoyé. Veuillez réessayer ou m'écrire sur WhatsApp.",
     reassuranceQuote: '«\u00a0Je réponds en moins de 24 heures.\u00a0»',
     reassuranceSub:
       "Réservez votre première séance aujourd'hui.",
@@ -630,7 +639,20 @@ const footer = {
   },
 } as const;
 
+// ── WhatsApp widget ──────────────────────────────────────────────────────────
+const whatsapp = {
+  es: {
+    defaultMessage: '¡Hola Paula! Me interesa agendar mi primera clase de prueba de francés gratis.',
+  },
+  en: {
+    defaultMessage: 'Hi Paula! I\'m interested in booking my first free French trial class.',
+  },
+  fr: {
+    defaultMessage: 'Bonjour Paula ! Je suis intéressé(e) pour réserver mon premier cours d\'essai de français gratuit.',
+  },
+} as const;
+
 // ── Master dictionary export ─────────────────────────────────────────────────
-export const ui = { seo, nav, hero, about, services, methodology, contact, footer } as const;
+export const ui = { seo, nav, hero, about, services, methodology, contact, footer, whatsapp } as const;
 
 export type UI = typeof ui;

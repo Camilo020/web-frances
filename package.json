@@ -6,16 +6,21 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "astro check",
+    "lint": "astro check"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.15",
     "@astrojs/sitemap": "^3.7.0",
+    "@fontsource/cormorant-garamond": "5.1.0",
+    "@fontsource/plus-jakarta-sans": "5.1.0",
     "@iconify-json/tabler": "^1.2.26",
     "@tailwindcss/vite": "^4.2.0",
-    "astro": "^5.17.1",
+    "astro": "^5.18.2",
     "astro-icon": "^1.1.5",
     "astro-seo": "^1.1.0",
-    "tailwindcss": "^4.2.0"
+    "tailwindcss": "^4.2.0",
+    "vite": "^7.3.1"
   }
 }

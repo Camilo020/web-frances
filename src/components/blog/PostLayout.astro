@@ -3,8 +3,14 @@ import BaseLayout from "../../components/layout/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
 import { getReadingTime, getArticleMeta } from "../../lib/utils";
+import { getLangFromUrl } from "../../i18n/utils";
+import type { Lang } from "../../i18n/utils";
+import { ROUTES } from "../../i18n/routes";
 import Divider from "../../components/ui/Divider.astro";
 import Button from "../../components/ui/Button.astro";
+import { createBlogPostingSchema, createBreadcrumbListSchema } from "../../lib/schemas";
+
+const lang = getLangFromUrl(Astro.url) as Lang;
 
 export async function getStaticPaths() {
     const posts = await getCollection("blog", ({ data }) => !data.draft);
@@ -31,6 +37,10 @@ const relatedPosts = allPosts
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description}>
+    <!-- JSON-LD: BlogPosting + BreadcrumbList -->
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(createBlogPostingSchema({ post, slug: post.slug, lang }))} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(createBreadcrumbListSchema({ slug: post.slug, lang }))} />
+
     <article class="post" aria-labelledby="post-title">
         <!-- Hero -->
         <header class="post__hero">
@@ -38,13 +48,13 @@ const relatedPosts = allPosts
             <div class="container post__hero-content">
                 <!-- Breadcrumb -->
                 <nav class="post__breadcrumb" aria-label="Ruta de navegación">
-                    <a href="/" class="post__breadcrumb-link">Inicio</a>
+                    <a href={ROUTES.home[lang]} class="post__breadcrumb-link">Inicio</a>
                     <Icon
                         name="tabler:chevron-right"
                         class="post__breadcrumb-sep"
                         aria-hidden="true"
                     />
-                    <a href="/blog" class="post__breadcrumb-link">Blog</a>
+                    <a href={ROUTES.blog[lang]} class="post__breadcrumb-link">Blog</a>
                     <Icon
                         name="tabler:chevron-right"
                         class="post__breadcrumb-sep"
@@ -57,11 +67,6 @@ const relatedPosts = allPosts
 
                 <span class="post__category">{post.data.category}</span>
                 <h1 class="post__title" id="post-title">{post.data.title}</h1>
-                {
-                    post.data.titleFr && (
-                        <p class="post__title-fr">{post.data.titleFr}</p>
-                    )
-                }
                 <p class="post__meta">{meta}</p>
 
                 <!-- Tags -->
@@ -103,7 +108,7 @@ const relatedPosts = allPosts
                                 getReadingTime(rp.body ?? "");
                             return (
                                 <a
-                                    href={`/blog/${rp.slug}`}
+                                    href={`${ROUTES.blog[lang]}${rp.slug}/`}
                                     class="related-card"
                                 >
                                     <div
@@ -139,7 +144,7 @@ const relatedPosts = allPosts
                 <p class="post__cta-sub">
                     Agenda tu primera clase.
                 </p>
-                <Button href="/agendar" variant="primary" size="lg"
+                <Button href={ROUTES.agendar[lang]} variant="primary" size="lg"
                     >Agenda tu clase→</Button
                 >
             </div>

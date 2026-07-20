@@ -1,0 +1,369 @@
+---
+/**
+ * BlogIndexPage — localized blog listing page component.
+ */
+import BaseLayout from "../layout/BaseLayout.astro";
+import { getReadingTime, getArticleMeta } from "../../lib/utils";
+import { ROUTES, type Lang } from "../../i18n/routes";
+import { getPostsByLang } from "../../lib/blog";
+
+interface Props {
+    lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const allPosts = await getPostsByLang(lang);
+
+const categories = [
+    "Aprendizaje",
+    "Certificaciones",
+    "Cultura",
+    "Pronunciación",
+    "Gramática",
+] as const;
+---
+
+<BaseLayout
+    title="Blog de Francés | Recursos Gratuitos"
+    description="Tips, guías y artículos para aprender francés. Recursos gratuitos de una filóloga certificada DALF. Pronunciación, gramática, certificaciones y cultura."
+>
+    <!-- Blog hero -->
+    <header class="blog-hero">
+        <div class="container">
+            <p class="blog-hero__eyebrow">Ressources gratuites</p>
+            <h1 class="blog-hero__title">Recursos gratuitos</h1>
+            <p class="blog-hero__subtitle">
+                Tips, guías y artículos para tu aprendizaje del francés. Sin
+                costo, sin registro.
+            </p>
+        </div>
+    </header>
+
+    <section class="blog-listing section container">
+        <!-- Category filter -->
+        <div
+            class="blog-filter"
+            role="group"
+            aria-label="Filtrar por categoría"
+        >
+            <button
+                class="filter-btn filter-btn--active"
+                data-filter="all"
+                aria-pressed="true"
+            >
+                Todos
+            </button>
+            {
+                categories.map((cat) => (
+                    <button
+                        class="filter-btn"
+                        data-filter={cat}
+                        aria-pressed="false"
+                    >
+                        {cat}
+                    </button>
+                ))
+            }
+        </div>
+
+        <!-- Posts grid -->
+        <div class="blog-grid" id="blog-grid">
+            {
+                allPosts.map((post) => {
+                    const readingTime =
+                        post.data.readingTime ??
+                        getReadingTime(post.body ?? "");
+                    const meta = getArticleMeta(post.data.pubDate, readingTime);
+                    const postSlug = post.id.split(".")[0];
+                    return (
+                        <article
+                            class="post-card"
+                            data-category={post.data.category}
+                            aria-labelledby={`blog-title-${postSlug}`}
+                        >
+                            <a
+                                href={`${ROUTES.blogPost[lang]}${postSlug}/`}
+                                class="post-card__cover-link"
+                                tabindex="-1"
+                                aria-hidden="true"
+                            >
+                                <div class="post-card__cover">
+                                    <span class="post-card__category-pill">
+                                        {post.data.category}
+                                    </span>
+                                </div>
+                            </a>
+                            <div class="post-card__body">
+                                <p class="post-card__meta">{meta}</p>
+                                <h2
+                                    class="post-card__title"
+                                    id={`blog-title-${postSlug}`}
+                                >
+                                    <a
+                                        href={`${ROUTES.blogPost[lang]}${postSlug}/`}
+                                        class="post-card__title-link"
+                                    >
+                                        {post.data.title}
+                                    </a>
+                                </h2>
+                                <p class="post-card__excerpt">
+                                    {post.data.description}
+                                </p>
+                                <a
+                                    href={`${ROUTES.blogPost[lang]}${postSlug}/`}
+                                    class="post-card__read-more"
+                                >
+                                    Leer artículo{" "}
+                                    <span aria-hidden="true">→</span>
+                                </a>
+                            </div>
+                        </article>
+                    );
+                })
+            }
+        </div>
+
+        <!-- Empty state -->
+        <p class="blog-empty" id="blog-empty" hidden aria-live="polite">
+            No hay artículos en esta categoría aún. ¡Próximamente!
+        </p>
+    </section>
+</BaseLayout>
+
+<style>
+    /* Hero */
+    .blog-hero {
+        background: linear-gradient(135deg, #000000 0%, #1a0d2e 100%);
+        padding-top: 130px;
+        padding-bottom: var(--space-12);
+        text-align: center;
+    }
+
+    .blog-hero__eyebrow {
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--accent-light);
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        margin-bottom: var(--space-1);
+    }
+
+    .blog-hero__title {
+        font-family: var(--font-heading);
+        font-size: var(--text-5xl);
+        font-weight: 700;
+        color: var(--color-white);
+        margin-bottom: var(--space-2);
+    }
+
+    .blog-hero__subtitle {
+        font-family: var(--font-body);
+        font-size: var(--text-lg);
+        color: var(--color-gray);
+        max-width: 520px;
+        margin: 0 auto;
+        line-height: 1.7;
+    }
+
+    /* Filter */
+    .blog-filter {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-1);
+        margin-bottom: var(--space-8);
+    }
+
+    .filter-btn {
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--color-gray);
+        background: transparent;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-pill);
+        padding: 6px 16px;
+        cursor: pointer;
+        transition:
+            background var(--transition-base),
+            color var(--transition-base),
+            border-color var(--transition-base);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+    }
+
+    .filter-btn:hover,
+    .filter-btn--active {
+        background: var(--accent-primary);
+        border-color: var(--accent-primary);
+        color: var(--color-white);
+    }
+
+    /* Grid */
+    .blog-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
+
+    @media (min-width: 768px) {
+        .blog-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .blog-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    /* Card */
+    .post-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition:
+            transform var(--transition-base),
+            border-color var(--transition-base),
+            box-shadow var(--transition-base);
+    }
+
+    .post-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--accent-light);
+        box-shadow: var(--shadow-hover);
+    }
+
+    .post-card__cover-link {
+        display: block;
+    }
+
+    .post-card__cover {
+        height: 200px;
+        background: linear-gradient(135deg, var(--color-purple) 0%, #000 100%);
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        padding: var(--space-2);
+    }
+
+    .post-card__category-pill {
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--color-white);
+        background: var(--accent-primary);
+        border-radius: var(--radius-pill);
+        padding: 3px 10px;
+    }
+
+    .post-card__body {
+        padding: var(--space-4);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-1);
+        flex: 1;
+    }
+
+    .post-card__meta {
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--color-gray);
+    }
+
+    .post-card__title {
+        font-family: var(--font-heading);
+        font-size: var(--text-xl);
+        font-weight: 600;
+        color: var(--color-white);
+        line-height: 1.3;
+        flex: 1;
+    }
+
+    .post-card__title-link {
+        text-decoration: none;
+        color: inherit;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        transition: color var(--transition-base);
+    }
+
+    .post-card__title-link:hover {
+        color: var(--accent-light);
+    }
+
+    .post-card__excerpt {
+        font-family: var(--font-body);
+        font-size: var(--text-sm);
+        color: var(--color-gray);
+        line-height: 1.6;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .post-card__read-more {
+        font-family: var(--font-body);
+        font-size: var(--text-sm);
+        font-weight: 600;
+        color: var(--accent-light);
+        text-decoration: none;
+        margin-top: var(--space-1);
+        transition:
+            gap var(--transition-base),
+            color var(--transition-base);
+        display: inline-flex;
+        gap: 4px;
+        align-items: center;
+    }
+
+    .post-card__read-more:hover {
+        color: var(--color-white);
+        gap: 10px;
+    }
+
+    .blog-empty {
+        text-align: center;
+        font-family: var(--font-body);
+        color: var(--color-gray);
+        padding: var(--space-12) 0;
+        font-size: var(--text-lg);
+    }
+</style>
+
+<script>
+    const filterBtns =
+        document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+    const cards = document.querySelectorAll<HTMLElement>(".post-card");
+    const emptyState = document.getElementById("blog-empty");
+
+    filterBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const filter = btn.dataset.filter ?? "all";
+
+            // Update active state
+            filterBtns.forEach((b) => {
+                b.classList.remove("filter-btn--active");
+                b.setAttribute("aria-pressed", "false");
+            });
+            btn.classList.add("filter-btn--active");
+            btn.setAttribute("aria-pressed", "true");
+
+            // Filter cards
+            let visible = 0;
+            cards.forEach((card) => {
+                const matches =
+                    filter === "all" || card.dataset.category === filter;
+                card.style.display = matches ? "flex" : "none";
+                if (matches) visible++;
+            });
+
+            if (emptyState) emptyState.hidden = visible > 0;
+        });
+    });
+</script>

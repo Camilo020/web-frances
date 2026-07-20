@@ -1,6 +1,8 @@
 ---
+translationKey: u-francesa
+lang: es
+slug: la-u-francesa-como-pronunciarla
 title: "La U francesa: cómo pronunciarla de verdad"
-titleFr: "Le U français : comment vraiment le prononcer"
 description: "La U francesa es el sonido que más cuesta a los hispanohablantes. Aquí tienes una guía paso a paso para dominarla de una vez por todas."
 pubDate: 2026-01-25
 tags: ["pronunciación", "fonética"]

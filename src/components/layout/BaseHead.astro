@@ -1,7 +1,14 @@
 ---
 import { SEO } from "astro-seo";
-import { getLangFromUrl, useTranslations, getCanonicalForLang, LOCALES } from "../../i18n/utils";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 import type { Lang } from "../../i18n/utils";
+import {
+    getCanonicalUrl,
+    getOgImageUrl,
+    getHreflangUrls,
+    getXDefaultUrl,
+} from "../../lib/seo";
+import { createPersonSchema, createServiceSchema } from "../../lib/schemas";
 
 interface Props {
     title: string;
@@ -13,7 +20,7 @@ interface Props {
 const {
     title,
     description,
-    image = "/images/og-image.jpg",
+    image,
     canonical,
 } = Astro.props;
 
@@ -21,93 +28,42 @@ const lang = getLangFromUrl(Astro.url) as Lang;
 const t = useTranslations(lang);
 const seoDict = t("seo");
 
-// ── Hreflang URLs ──────────────────────────────────────────────
-const siteUrl = import.meta.env.SITE ?? "https://ouipaula.com";
+// ── Canonical URL (from pathname, never from href) ─────────────
+const canonicalUrl = canonical ?? getCanonicalUrl(Astro.url.pathname);
 
-const hreflangLinks = LOCALES.map((locale) => ({
-    rel: "alternate",
-    hreflang: locale === "es" ? "es-CO" : locale === "en" ? "en-US" : "fr-FR",
-    href: getCanonicalForLang(siteUrl, Astro.url, locale as Lang),
-}));
+// ── OG Image (absolute, with fallback to og-default.png) ───────
+const ogImageUrl = getOgImageUrl(image);
 
-const xDefaultHref = getCanonicalForLang(siteUrl, Astro.url, "en");
+// ── Hreflang URLs (only for localizable routes) ────────────────
+const hreflangLinks = getHreflangUrls(Astro.url.pathname);
+const xDefaultHref = getCanonicalUrl(getXDefaultUrl());
 
 // ── JSON-LD Structured Data ────────────────────────────────────
-const personSchema = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    name: "OuiPaula",
-    jobTitle:
-        lang === "es"
-            ? "Profesora de Francés"
-            : lang === "en"
-              ? "French Language Teacher"
-              : "Professeure de Français",
-    description,
-    knowsLanguage: ["es", "en", "fr"],
-    address: {
-        "@type": "PostalAddress",
-        addressLocality: "Bogotá",
-        addressCountry: "CO",
-    },
-    url: siteUrl,
-    sameAs: [
-        "https://linkedin.com",
-        "https://instagram.com",
-        "https://youtube.com",
-    ],
-};
-
-const serviceSchema = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    name:
-        lang === "es"
-            ? "Clases de Francés"
-            : lang === "en"
-              ? "French Classes"
-              : "Cours de Français",
-    description,
-    provider: {
-        "@type": "Person",
-        name: "OuiPaula",
-    },
-    areaServed: {
-        "@type": "Place",
-        name: "Worldwide",
-    },
-    availableChannel: {
-        "@type": "ServiceChannel",
-        serviceUrl: siteUrl,
-    },
-    inLanguage: lang,
-};
+const personSchema = createPersonSchema({ description, lang });
+const serviceSchema = createServiceSchema({ description, lang });
 ---
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-<!-- Hreflang tags (injected for every locale) -->
-{hreflangLinks.map(({ rel, hreflang, href }) => (
-    <link rel={rel} hreflang={hreflang} href={href} />
+<!-- Hreflang tags (only for localizable routes) -->
+{hreflangLinks?.map(({ hreflang, href }) => (
+    <link rel="alternate" hreflang={hreflang} href={href} />
 ))}
-<!-- x-default → English (best fallback for unmatched regions) -->
 <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
 
 <!-- astro-seo: dynamic title, description, OG, Twitter -->
 <SEO
     title={title}
     description={description}
-    canonical={canonical}
+    canonical={canonicalUrl}
     openGraph={{
         basic: {
             title,
             type: "website",
-            image,
-            url: canonical,
+            image: ogImageUrl,
+            url: canonicalUrl,
         },
         optional: {
             description,
@@ -125,7 +81,7 @@ const serviceSchema = {
         site: "@ouipaula",
         title,
         description,
-        image,
+        image: ogImageUrl,
         imageAlt: seoDict.twitterImageAlt,
     }}
     extend={{
@@ -139,7 +95,7 @@ const serviceSchema = {
 />
 
 <!-- JSON-LD: Person schema -->
-<script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 
 <!-- JSON-LD: Service schema -->
-<script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />

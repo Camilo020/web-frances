@@ -1,0 +1,33 @@
+---
+/**
+ * Localized blog post detail pages for EN and FR.
+ * Spanish (default locale) is rendered from src/pages/blog/[...slug].astro
+ */
+import PostLayout from "../../../components/blog/PostLayout.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+import type { GetStaticPaths } from "astro";
+
+type NonDefaultLang = "en" | "fr";
+
+interface StaticPath {
+    params: { lang: NonDefaultLang; slug: string };
+    props: { post: CollectionEntry<"blog"> };
+}
+
+export const getStaticPaths = (async () => {
+    const posts = await getCollection("blog", ({ data }) => {
+        return (data.lang === "en" || data.lang === "fr") && !data.draft;
+    });
+
+    const paths: StaticPath[] = posts.map((post) => ({
+        params: { lang: post.data.lang as NonDefaultLang, slug: post.id.split(".")[0] },
+        props: { post },
+    }));
+
+    return paths;
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props;
+---
+
+<PostLayout post={post} />

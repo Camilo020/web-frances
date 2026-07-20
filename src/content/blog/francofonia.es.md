@@ -1,6 +1,8 @@
 ---
+translationKey: francofonia
+lang: es
+slug: paises-francofonos-mas-alla-de-francia
 title: "Países francófonos: mucho más allá de Francia"
-titleFr: "Les pays francophones : bien au-delà de la France"
 description: "Más de 300 millones de personas hablan francés en el mundo. Descubre la riqueza cultural y lingüística de la francofonía más allá de París."
 pubDate: 2026-01-08
 tags: ["francófono", "cultura"]

@@ -1,6 +1,8 @@
 ---
+translationKey: errores-comunes
+lang: es
+slug: 5-errores-comunes-aprender-frances
 title: "5 errores comunes al aprender francés (y cómo evitarlos)"
-titleFr: "5 erreurs courantes en français et comment les éviter"
 description: "Aprende cuáles son los cinco errores más frecuentes entre hispanohablantes que aprenden francés y cómo superarlos rápidamente."
 pubDate: 2025-12-10
 tags: ["tips", "principiantes"]

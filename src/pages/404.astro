@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../components/layout/BaseLayout.astro";
 import Button from "../components/ui/Button.astro";
+import { ROUTES } from "../i18n/routes";
 ---
 
 <BaseLayout
@@ -18,8 +19,8 @@ import Button from "../components/ui/Button.astro";
                 La página que buscas no existe o fue movida.
             </p>
             <div class="not-found__cta">
-                <Button href="/" variant="primary">Volver al inicio</Button>
-                <Button href="/blog" variant="outline">Ver el blog</Button>
+                <Button href={ROUTES.home.es} variant="primary">Volver al inicio</Button>
+                <Button href={ROUTES.blog.es} variant="outline">Ver el blog</Button>
             </div>
         </div>
     </section>

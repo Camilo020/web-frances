@@ -1,0 +1,34 @@
+---
+/**
+ * HomePage — reusable page component for the localized homepage.
+ * Sections detect their locale from Astro.url.
+ */
+import BaseLayout from "../layout/BaseLayout.astro";
+import Hero from "../sections/Hero.astro";
+import About from "../sections/About.astro";
+import Services from "../sections/Services.astro";
+import Methodology from "../sections/Methodology.astro";
+import Testimonials from "../sections/Testimonials.astro";
+import BlogPreview from "../sections/BlogPreview.astro";
+import Contact from "../sections/Contact.astro";
+import Divider from "../ui/Divider.astro";
+
+interface Props {
+    lang: "es" | "en" | "fr";
+}
+---
+
+<BaseLayout>
+    <Hero />
+    <Divider style="fleur" />
+    <About />
+    <Divider style="line" />
+    <Services />
+    <Divider style="dots" />
+    <Methodology />
+    <Divider style="fleur" />
+    <Testimonials />
+    <Divider style="line" />
+    <BlogPreview />
+    <Contact />
+</BaseLayout>

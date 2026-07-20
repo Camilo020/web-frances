@@ -1,5 +1,6 @@
 ---
 import "../../styles/global.css";
+import { ClientRouter } from "astro:transitions";
 import BaseHead from "./BaseHead.astro";
 import Navbar from "./Navbar.astro";
 import Footer from "./Footer.astro";
@@ -21,8 +22,8 @@ const seoDict = t("seo");
 const {
     title = seoDict.title,
     description = seoDict.description,
-    image = "/images/og-image.jpg",
-    canonical = Astro.url.href,
+    image = "/og-default.png",
+    canonical,
 } = Astro.props;
 
 const SITE_NAME = "OuiPaula";
@@ -38,6 +39,7 @@ const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
             image={image}
             canonical={canonical}
         />
+        <ClientRouter />
         <!-- Additional head slot (for page-specific overrides) -->
         <slot name="head" />
     </head>
@@ -49,26 +51,13 @@ const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
         <Footer />
         <WhatsAppWidget
             phoneNumber="573000000000"
-            message="¡Hola Paula! Me interesa agendar mi primera clase de prueba de francés gratis."
+            message={t("whatsapp").defaultMessage}
         />
 
-        <!-- Global IntersectionObserver for .reveal elements -->
+        <!-- Client scripts re-hydrated on each page transition -->
         <script>
-            const observer = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add("visible");
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                },
-                { threshold: 0.1, rootMargin: "0px 0px -60px 0px" },
-            );
-
-            document.querySelectorAll(".reveal").forEach((el) => {
-                observer.observe(el);
-            });
+            import "../../scripts/navbar.ts";
+            import "../../scripts/reveal.ts";
         </script>
     </body>
 </html>

@@ -1,30 +1,9 @@
 ---
 /**
  * Root index — default locale "es" (no URL prefix).
- * All UI components receive the locale via Astro.currentLocale.
+ * Delegates to HomePage component.
  */
-import BaseLayout from "../components/layout/BaseLayout.astro";
-import Hero from "../components/sections/Hero.astro";
-import About from "../components/sections/About.astro";
-import Services from "../components/sections/Services.astro";
-import Methodology from "../components/sections/Methodology.astro";
-import Testimonials from "../components/sections/Testimonials.astro";
-import BlogPreview from "../components/sections/BlogPreview.astro";
-import Contact from "../components/sections/Contact.astro";
-import Divider from "../components/ui/Divider.astro";
+import HomePage from "../components/pages/HomePage.astro";
 ---
 
-<BaseLayout>
-	<Hero />
-	<Divider style="fleur" />
-	<About />
-	<Divider style="line" />
-	<Services />
-	<Divider style="dots" />
-	<Methodology />
-	<Divider style="fleur" />
-	<Testimonials />
-	<Divider style="line" />
-	<BlogPreview />
-	<Contact />
-</BaseLayout>
+<HomePage lang="es" />

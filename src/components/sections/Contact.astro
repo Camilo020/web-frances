@@ -14,11 +14,13 @@ const { standalone = false } = Astro.props;
 const lang = getLangFromUrl(Astro.url) as Lang;
 const t = useTranslations(lang);
 const c = t("contact");
+
+// Formspree endpoint from environment (dummy placeholder per plan)
+const FORMSPREE_ENDPOINT = import.meta.env.FORMSPREE_ENDPOINT ?? "https://formspree.io/f/xxxxxxxx";
 ---
 
 <section class="contact section" id="contacto" aria-labelledby="contact-title">
     <div class="contact__bg-deco" aria-hidden="true">
-        <!-- Faint arch SVG -->
         <svg
             viewBox="0 0 400 500"
             fill="none"
@@ -32,20 +34,8 @@ const c = t("contact");
                 d="M200 480 L200 200 Q200 60 300 60 Q400 60 400 200 L400 480 Z"
                 fill="white"
                 opacity="0.03"></path>
-            <rect
-                x="0"
-                y="200"
-                width="400"
-                height="12"
-                fill="white"
-                opacity="0.025"></rect>
-            <rect
-                x="40"
-                y="320"
-                width="320"
-                height="10"
-                fill="white"
-                opacity="0.02"></rect>
+            <rect x="0" y="200" width="400" height="12" fill="white" opacity="0.025"></rect>
+            <rect x="40" y="320" width="320" height="10" fill="white" opacity="0.02"></rect>
         </svg>
     </div>
 
@@ -63,126 +53,154 @@ const c = t("contact");
             <div class="contact__form-wrap reveal">
                 <form
                     class="contact__form"
-                    name="contact"
+                    action={FORMSPREE_ENDPOINT}
                     method="POST"
-                    data-netlify="true"
-                    netlify-honeypot="bot-field"
                     id="contact-form"
                     novalidate
                     aria-label={c.formAriaLabel}
+                    data-state="idle"
                 >
-                    <input type="hidden" name="form-name" value="contact" />
-                    <input type="hidden" name="bot-field" aria-hidden="true" />
+                    <!-- Honeypot field (Formspree: name="_gotcha") -->
+                    <input
+                        type="text"
+                        name="_gotcha"
+                        tabindex="-1"
+                        autocomplete="off"
+                        aria-hidden="true"
+                        class="honeypot"
+                    />
 
-                    <div class="form-group">
-                        <label for="nombre" class="form-label">
-                            {c.fieldName} <span class="required" aria-hidden="true">*</span>
-                        </label>
-                        <input
-                            type="text"
-                            id="nombre"
-                            name="nombre"
-                            class="form-input"
-                            placeholder={c.fieldNamePlaceholder}
-                            required
-                            autocomplete="name"
-                        />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email" class="form-label">
-                            {c.fieldEmail} <span class="required" aria-hidden="true">*</span>
-                        </label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            class="form-input"
-                            placeholder={c.fieldEmailPlaceholder}
-                            required
-                            autocomplete="email"
-                        />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="whatsapp" class="form-label">
-                            {c.fieldWhatsapp} <span class="required" aria-hidden="true">*</span>
-                        </label>
-                        <div class="form-tel-wrap">
-                            <span class="form-tel-prefix">+57</span>
-                            <input
-                                type="tel"
-                                id="whatsapp"
-                                name="whatsapp"
-                                class="form-input form-input--tel"
-                                placeholder={c.fieldWhatsappPlaceholder}
-                                required
-                                autocomplete="tel"
-                            />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="nivel" class="form-label">
-                            {c.fieldLevel} <span class="required" aria-hidden="true">*</span>
-                        </label>
-                        <select id="nivel" name="nivel" class="form-input" required>
-                            <option value="" disabled selected>{c.fieldLevelDefault}</option>
-                            {c.levelOptions.map((opt) => (
-                                <option value={opt.value}>{opt.label}</option>
-                            ))}
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="objetivo" class="form-label">
-                            {c.fieldGoal} <span class="required" aria-hidden="true">*</span>
-                        </label>
-                        <select id="objetivo" name="objetivo" class="form-input" required>
-                            <option value="" disabled selected>{c.fieldGoalDefault}</option>
-                            {c.goalOptions.map((opt) => (
-                                <option value={opt.value}>{opt.label}</option>
-                            ))}
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="mensaje" class="form-label">{c.fieldMessage}</label>
-                        <textarea
-                            id="mensaje"
-                            name="mensaje"
-                            class="form-input"
-                            rows="4"
-                            placeholder={c.fieldMessagePlaceholder}
-                        ></textarea>
-                    </div>
-
-                    <div class="form-group form-group--checkbox">
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="acepto" required />
-                            <span class="checkbox-text">{c.checkboxText}</span>
-                        </label>
-                    </div>
-
-                    <Button type="submit" variant="primary" fullWidth size="lg">
-                        {c.submitBtn}
-                    </Button>
-
-                    <!-- Success message (hidden by default) -->
+                    <!-- Status messages (idle / sending / success / error) -->
                     <div
-                        class="form-success"
+                        class="form-status form-status--sending"
+                        id="form-sending"
+                        hidden
+                        role="status"
+                        aria-live="polite"
+                    >
+                        <Icon name="tabler:loader-2" class="form-status__icon form-status__icon--spin" aria-hidden="true" />
+                        <span>{c.sending}</span>
+                    </div>
+
+                    <div
+                        class="form-status form-status--success"
                         id="form-success"
                         hidden
-                        aria-live="polite"
                         role="status"
+                        aria-live="polite"
                     >
-                        <Icon
-                            name="tabler:circle-check"
-                            class="form-success__icon"
-                            aria-hidden="true"
-                        />
+                        <Icon name="tabler:circle-check" class="form-status__icon" aria-hidden="true" />
                         <strong>{c.successTitle}</strong>
                         <p>{c.successText}</p>
+                    </div>
+
+                    <div
+                        class="form-status form-status--error"
+                        id="form-error"
+                        hidden
+                        role="alert"
+                        aria-live="assertive"
+                    >
+                        <Icon name="tabler:alert-circle" class="form-status__icon" aria-hidden="true" />
+                        <strong>{c.errorTitle}</strong>
+                        <p>{c.errorText}</p>
+                    </div>
+
+                    <!-- Fields (hidden when success) -->
+                    <div class="form-fields" id="form-fields">
+                        <div class="form-group">
+                            <label for="nombre" class="form-label">
+                                {c.fieldName} <span class="required" aria-hidden="true">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="nombre"
+                                name="nombre"
+                                class="form-input"
+                                placeholder={c.fieldNamePlaceholder}
+                                required
+                                autocomplete="name"
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">
+                                {c.fieldEmail} <span class="required" aria-hidden="true">*</span>
+                            </label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                class="form-input"
+                                placeholder={c.fieldEmailPlaceholder}
+                                required
+                                autocomplete="email"
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="whatsapp" class="form-label">
+                                {c.fieldWhatsapp} <span class="required" aria-hidden="true">*</span>
+                            </label>
+                            <div class="form-tel-wrap">
+                                <span class="form-tel-prefix">+57</span>
+                                <input
+                                    type="tel"
+                                    id="whatsapp"
+                                    name="whatsapp"
+                                    class="form-input form-input--tel"
+                                    placeholder={c.fieldWhatsappPlaceholder}
+                                    required
+                                    autocomplete="tel"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nivel" class="form-label">
+                                {c.fieldLevel} <span class="required" aria-hidden="true">*</span>
+                            </label>
+                            <select id="nivel" name="nivel" class="form-input" required>
+                                <option value="" disabled selected>{c.fieldLevelDefault}</option>
+                                {c.levelOptions.map((opt) => (
+                                    <option value={opt.value}>{opt.label}</option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="objetivo" class="form-label">
+                                {c.fieldGoal} <span class="required" aria-hidden="true">*</span>
+                            </label>
+                            <select id="objetivo" name="objetivo" class="form-input" required>
+                                <option value="" disabled selected>{c.fieldGoalDefault}</option>
+                                {c.goalOptions.map((opt) => (
+                                    <option value={opt.value}>{opt.label}</option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mensaje" class="form-label">{c.fieldMessage}</label>
+                            <textarea
+                                id="mensaje"
+                                name="mensaje"
+                                class="form-input"
+                                rows="4"
+                                placeholder={c.fieldMessagePlaceholder}
+                            ></textarea>
+                        </div>
+
+                        <div class="form-group form-group--checkbox">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="acepto" required />
+                                <span class="checkbox-text">{c.checkboxText}</span>
+                            </label>
+                        </div>
+
+                        <Button type="submit" variant="primary" fullWidth size="lg" id="form-submit-btn">
+                            {c.submitBtn}
+                        </Button>
                     </div>
                 </form>
             </div>
@@ -200,32 +218,19 @@ const c = t("contact");
 
                 <ul class="contact__info-list" aria-label={c.contactInfoAriaLabel}>
                     <li class="contact__info-item">
-                        <Icon
-                            name="tabler:brand-whatsapp"
-                            class="contact__info-icon"
-                            aria-hidden="true"
-                        />
+                        <Icon name="tabler:brand-whatsapp" class="contact__info-icon" aria-hidden="true" />
                         <span>+57 300 000 0000 · WhatsApp</span>
                     </li>
                     <li class="contact__info-item">
-                        <Icon
-                            name="tabler:mail"
-                            class="contact__info-icon"
-                            aria-hidden="true"
-                        />
+                        <Icon name="tabler:mail" class="contact__info-icon" aria-hidden="true" />
                         <span>paula.cardenass.613@gmail.com</span>
                     </li>
                     <li class="contact__info-item">
-                        <Icon
-                            name="tabler:map-pin"
-                            class="contact__info-icon"
-                            aria-hidden="true"
-                        />
+                        <Icon name="tabler:map-pin" class="contact__info-icon" aria-hidden="true" />
                         <span>Bogotá, Colombia · Online LATAM</span>
                     </li>
                 </ul>
 
-                <!-- Social links -->
                 <div class="contact__socials" role="list" aria-label={c.socialsAriaLabel}>
                     <a
                         href="https://www.linkedin.com/in/paula-cardenas-fle/"
@@ -237,26 +242,6 @@ const c = t("contact");
                     >
                         <Icon name="tabler:brand-linkedin" class="social-btn__icon" aria-hidden="true" />
                     </a>
-                    <!-- <a
-                        href="https://instagram.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="social-btn"
-                        role="listitem"
-                        aria-label="Instagram"
-                    >
-                        <Icon name="tabler:brand-instagram" class="social-btn__icon" aria-hidden="true" />
-                    </a>
-                    <a
-                        href="https://youtube.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="social-btn"
-                        role="listitem"
-                        aria-label="YouTube"
-                    >
-                        <Icon name="tabler:brand-youtube" class="social-btn__icon" aria-hidden="true" />
-                    </a> -->
                 </div>
             </div>
         </div>
@@ -285,7 +270,6 @@ const c = t("contact");
         z-index: 1;
     }
 
-    /* Grid */
     .contact__grid {
         display: grid;
         grid-template-columns: 1fr;
@@ -299,11 +283,71 @@ const c = t("contact");
         }
     }
 
-    /* Form */
     .contact__form {
         display: flex;
         flex-direction: column;
         gap: var(--space-3);
+    }
+
+    /* Honeypot — visually hidden but present for bots */
+    .honeypot {
+        position: absolute;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    /* Status messages */
+    .form-status {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: var(--space-1);
+        padding: var(--space-4);
+        border-radius: var(--radius-md);
+    }
+
+    .form-status__icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .form-status__icon--spin {
+        animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    .form-status--sending {
+        color: var(--accent-light);
+    }
+
+    .form-status--success {
+        background: rgba(96, 64, 153, 0.12);
+        border: 1px solid var(--border-color);
+        color: var(--color-white);
+    }
+
+    .form-status--success p {
+        color: var(--color-gray);
+        font-size: var(--text-sm);
+    }
+
+    .form-status--error {
+        background: rgba(220, 38, 38, 0.1);
+        border: 1px solid rgba(220, 38, 38, 0.3);
+        color: var(--color-white);
+    }
+
+    .form-status--error p {
+        color: var(--color-gray);
+        font-size: var(--text-sm);
     }
 
     .form-group {
@@ -384,32 +428,6 @@ const c = t("contact");
         cursor: pointer;
     }
 
-    /* Success message */
-    .form-success {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: var(--space-1);
-        padding: var(--space-4);
-        background: rgba(96, 64, 153, 0.12);
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius-md);
-        color: var(--color-white);
-    }
-
-    .form-success__icon {
-        width: 40px;
-        height: 40px;
-        color: var(--accent-light);
-    }
-
-    .form-success p {
-        color: var(--color-gray);
-        font-size: var(--text-sm);
-    }
-
-    /* Info block */
     .contact__info {
         display: flex;
         flex-direction: column;
@@ -493,30 +511,59 @@ const c = t("contact");
 </style>
 
 <script>
-    const form = document.getElementById(
-        "contact-form",
-    ) as HTMLFormElement | null;
+    const form = document.getElementById("contact-form") as HTMLFormElement | null;
+    const fieldsContainer = document.getElementById("form-fields");
+    const submitBtn = document.getElementById("form-submit-btn") as HTMLButtonElement | null;
+    const sendingMsg = document.getElementById("form-sending");
     const successMsg = document.getElementById("form-success");
+    const errorMsg = document.getElementById("form-error");
+
+    function setState(state: "idle" | "sending" | "success" | "error") {
+        // Hide all status messages
+        sendingMsg?.setAttribute("hidden", "");
+        successMsg?.setAttribute("hidden", "");
+        errorMsg?.setAttribute("hidden", "");
+
+        if (form) form.dataset.state = state;
+
+        switch (state) {
+            case "sending":
+                sendingMsg?.removeAttribute("hidden");
+                if (submitBtn) submitBtn.disabled = true;
+                break;
+            case "success":
+                successMsg?.removeAttribute("hidden");
+                fieldsContainer?.setAttribute("hidden", "");
+                break;
+            case "error":
+                errorMsg?.removeAttribute("hidden");
+                if (submitBtn) submitBtn.disabled = false;
+                break;
+            case "idle":
+                if (submitBtn) submitBtn.disabled = false;
+                break;
+        }
+    }
 
     if (form) {
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
-            const data = new FormData(form);
+            setState("sending");
+
             try {
-                await fetch("/", {
+                const response = await fetch(form.action, {
                     method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    body: new URLSearchParams(
-                        data as unknown as Record<string, string>,
-                    ).toString(),
+                    body: new FormData(form),
+                    headers: { Accept: "application/json" },
                 });
-                form.style.display = "none";
-                if (successMsg) successMsg.hidden = false;
+
+                if (response.ok) {
+                    setState("success");
+                } else {
+                    setState("error");
+                }
             } catch {
-                // fallback: native submit
-                form.submit();
+                setState("error");
             }
         });
     }

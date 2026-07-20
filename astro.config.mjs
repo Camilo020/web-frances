@@ -1,4 +1,3 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
@@ -8,19 +7,25 @@ import icon from 'astro-icon';
 export default defineConfig({
   site: 'https://ouipaula.com',
   output: 'static',
+  trailingSlash: 'always',
 
   // ── Astro native i18n routing ──────────────────────────────────
   i18n: {
     defaultLocale: 'es',
     locales: ['es', 'en', 'fr'],
     routing: {
-      prefixDefaultLocale: false, // Spanish at /, English at /en/, French at /fr/
+      prefixDefaultLocale: false,
     },
+  },
+
+  // ── Prefetch all links visible in viewport ──────────────────────
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'viewport',
   },
 
   integrations: [
     sitemap({
-      // Generate hreflang entries for every locale automatically
       i18n: {
         defaultLocale: 'es',
         locales: {

@@ -1,6 +1,8 @@
 ---
+translationKey: delf-b2-preparacion
+lang: es
+slug: como-preparar-delf-b2-60-dias
 title: "Cómo preparar el DELF B2 en 60 días"
-titleFr: "Comment préparer le DELF B2 en 60 jours"
 description: "Una guía práctica y estructurada para conseguir el DELF B2 en dos meses. Plan de estudio, materiales y estrategias probadas."
 pubDate: 2025-12-20
 tags: ["DELF", "certificación"]

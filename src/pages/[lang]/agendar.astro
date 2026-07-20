@@ -1,0 +1,17 @@
+---
+/**
+ * Dynamic locale booking pages — /en/agendar/, /fr/agendar/
+ * Spanish (default) stays at /agendar/ via src/pages/agendar.astro
+ */
+import type { GetStaticPaths } from "astro";
+import BookingPage from "../../components/pages/BookingPage.astro";
+
+export const getStaticPaths = (() => {
+  return [
+    { params: { lang: "en" } },
+    { params: { lang: "fr" } },
+  ];
+}) satisfies GetStaticPaths;
+---
+
+<BookingPage lang={Astro.params.lang as "en" | "fr"} />

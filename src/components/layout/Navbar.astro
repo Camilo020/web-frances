@@ -2,6 +2,7 @@
 import { Icon } from "astro-icon/components";
 import { getLangFromUrl, useTranslations, getRouteFromUrl, languages } from "../../i18n/utils";
 import type { Lang } from "../../i18n/utils";
+import { ROUTES } from "../../i18n/routes";
 
 const lang = getLangFromUrl(Astro.url) as Lang;
 const t = useTranslations(lang);
@@ -22,7 +23,7 @@ const langUrls = Object.keys(languages).map((l) => ({
 <header class="navbar" id="navbar" role="banner">
     <div class="navbar__inner container">
         <!-- Logo -->
-        <a href={`${prefix}/`} class="navbar__logo" aria-label={nav.logoAriaLabel}>
+        <a href={ROUTES.home[lang]} class="navbar__logo" aria-label={nav.logoAriaLabel}>
             <Icon
                 name="tabler:sparkles"
                 class="navbar__logo-icon"
@@ -37,7 +38,7 @@ const langUrls = Object.keys(languages).map((l) => ({
             <a href={`${prefix}/#sobre-mi`} class="navbar__link">{nav.about}</a>
             <a href={`${prefix}/#cursos`} class="navbar__link">{nav.courses}</a>
             <a href={`${prefix}/#metodologia`} class="navbar__link">{nav.methodology}</a>
-            <a href={`${prefix}/blog`} class="navbar__link">{nav.blog}</a>
+            <a href={ROUTES.blog[lang]} class="navbar__link">{nav.blog}</a>
             <a href={`${prefix}/#contacto`} class="navbar__link">{nav.contact}</a>
         </nav>
 
@@ -57,7 +58,7 @@ const langUrls = Object.keys(languages).map((l) => ({
         </div>
 
         <!-- CTA -->
-        <a href={`${prefix}/agendar`} class="btn btn--primary navbar__cta">{nav.cta}</a>
+        <a href={ROUTES.agendar[lang]} class="btn btn--primary navbar__cta">{nav.cta}</a>
 
         <!-- Hamburger -->
         <button
@@ -87,9 +88,9 @@ const langUrls = Object.keys(languages).map((l) => ({
         <a href={`${prefix}/#sobre-mi`} class="mobile-menu__link" data-close-menu>{nav.about}</a>
         <a href={`${prefix}/#cursos`} class="mobile-menu__link" data-close-menu>{nav.courses}</a>
         <a href={`${prefix}/#metodologia`} class="mobile-menu__link" data-close-menu>{nav.methodology}</a>
-        <a href={`${prefix}/blog`} class="mobile-menu__link" data-close-menu>{nav.blog}</a>
+        <a href={ROUTES.blog[lang]} class="mobile-menu__link" data-close-menu>{nav.blog}</a>
         <a href={`${prefix}/#contacto`} class="mobile-menu__link" data-close-menu>{nav.contact}</a>
-        <a href={`${prefix}/agendar`} class="btn btn--primary mobile-menu__cta" data-close-menu>{nav.cta}</a>
+        <a href={ROUTES.agendar[lang]} class="btn btn--primary mobile-menu__cta" data-close-menu>{nav.cta}</a>
 
         <!-- Language switcher (mobile) -->
         <div class="mobile-menu__lang" aria-label={nav.langSwitcher}>
@@ -109,7 +110,7 @@ const langUrls = Object.keys(languages).map((l) => ({
 </div>
 
 <style>
-    /* ── Navbar shell ──────────────────────────────────────────── */
+    /* ── Navbar shell ───────────────────────────────────────── */
     .navbar {
         position: fixed;
         top: 0;
@@ -155,7 +156,7 @@ const langUrls = Object.keys(languages).map((l) => ({
         letter-spacing: 0.02em;
     }
 
-    /* ── Desktop nav ───────────────────────────────────────────── */
+    /* ── Desktop nav ──────────────────────────────────────────────── */
     .navbar__nav {
         display: none;
         align-items: center;
@@ -202,7 +203,7 @@ const langUrls = Object.keys(languages).map((l) => ({
         transform: scaleX(1);
     }
 
-    /* ── Language switcher ─────────────────────────────────────── */
+    /* ── Language switcher ───────────────────────────────────────────── */
     .navbar__lang-switcher {
         display: none;
         align-items: center;
@@ -254,7 +255,7 @@ const langUrls = Object.keys(languages).map((l) => ({
         color: var(--accent-light);
     }
 
-    /* ── CTA button ────────────────────────────────────────────── */
+    /* ── CTA button ──────────────────────────────────────────────────── */
     .navbar__cta {
         display: none;
     }
@@ -265,7 +266,7 @@ const langUrls = Object.keys(languages).map((l) => ({
         }
     }
 
-    /* ── Hamburger ─────────────────────────────────────────────── */
+    /* ── Hamburger ────────────────────────────────────────────────────── */
     .navbar__hamburger {
         display: flex;
         flex-direction: column;
@@ -315,7 +316,7 @@ const langUrls = Object.keys(languages).map((l) => ({
         transform: translateY(-7px) rotate(-45deg);
     }
 
-    /* ── Mobile menu ───────────────────────────────────────────── */
+    /* ── Mobile menu ─────────────────────────────────────────────────── */
     .mobile-menu {
         position: fixed;
         inset: 0;
@@ -374,63 +375,3 @@ const langUrls = Object.keys(languages).map((l) => ({
         border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 </style>
-
-<script>
-    const navbar = document.getElementById("navbar")!;
-    const hamburger = document.getElementById("hamburger-btn")!;
-    const mobileMenu = document.getElementById("mobile-menu")!;
-    const closeLinks = document.querySelectorAll("[data-close-menu]");
-
-    // Scroll: toggle scrolled class
-    let ticking = false;
-    window.addEventListener("scroll", () => {
-        if (!ticking) {
-            requestAnimationFrame(() => {
-                if (window.scrollY > 60) {
-                    navbar.classList.add("navbar--scrolled");
-                } else {
-                    navbar.classList.remove("navbar--scrolled");
-                }
-                ticking = false;
-            });
-            ticking = true;
-        }
-    });
-
-    // Hamburger toggle
-    function openMenu() {
-        hamburger.setAttribute("aria-expanded", "true");
-        mobileMenu.setAttribute("aria-hidden", "false");
-        mobileMenu.classList.add("is-open");
-        document.body.classList.add("menu-open");
-    }
-
-    function closeMenu() {
-        hamburger.setAttribute("aria-expanded", "false");
-        mobileMenu.setAttribute("aria-hidden", "true");
-        mobileMenu.classList.remove("is-open");
-        document.body.classList.remove("menu-open");
-    }
-
-    hamburger.addEventListener("click", () => {
-        const isOpen = hamburger.getAttribute("aria-expanded") === "true";
-        isOpen ? closeMenu() : openMenu();
-    });
-
-    closeLinks.forEach((link) => link.addEventListener("click", closeMenu));
-
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeMenu();
-    });
-
-    // Active nav link highlight
-    const navLinks =
-        document.querySelectorAll<HTMLAnchorElement>(".navbar__link");
-    navLinks.forEach((link) => {
-        if (link.href === window.location.href) {
-            link.style.color = "var(--accent-light)";
-            const after = link as HTMLElement;
-            after.dataset.active = "true";
-        }
-    });
-</script>

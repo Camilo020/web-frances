@@ -1,0 +1,16 @@
+---
+/**
+ * Dynamic locale blog index pages — /en/blog/, /fr/blog/
+ */
+import type { GetStaticPaths } from "astro";
+import BlogIndexPage from "../../../components/pages/BlogIndexPage.astro";
+
+export const getStaticPaths = (() => {
+  return [
+    { params: { lang: "en" } },
+    { params: { lang: "fr" } },
+  ];
+}) satisfies GetStaticPaths;
+---
+
+<BlogIndexPage lang={Astro.params.lang as "en" | "fr"} />
