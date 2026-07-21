@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# hermes desktop attachments
+.hermes/desktop-attachments/
