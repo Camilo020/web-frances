@@ -17,7 +17,7 @@ const seo = {
   es: {
     title: 'OuiPaula | Profesora de Francés en Bogotá y Online',
     description:
-      'Clases de francés personalizadas en Bogotá y online para adultos. Filóloga certificada DALF. Preparación DELF/DALF, negocios y viajes.',
+      'Clases de francés personalizadas para jóvenes y adultos. Filóloga certificada DALF. Preparación DELF/DALF y TCF Canadá. En línea Bogotá y LATAM.',
     ogLocale: 'es_CO',
     ogImageAlt: 'OuiPaula | Profesora de Francés en Bogotá y Online',
     twitterImageAlt: 'OuiPaula | Profesora de Francés en Bogotá y Online',
@@ -25,7 +25,7 @@ const seo = {
   en: {
     title: 'OuiPaula | French Teacher in Bogotá & Online',
     description:
-      'Personalized French classes in Bogotá and online for adults. DALF-certified philologist. DELF/DALF prep, business French, and travel.',
+      'Personalized French classes for young learners and adults. DALF-certified philologist. DELF/DALF and TCF Canada prep. Online for Bogotá and LATAM.',
     ogLocale: 'en_US',
     ogImageAlt: 'OuiPaula | French Teacher in Bogotá & Online',
     twitterImageAlt: 'OuiPaula | French Teacher in Bogotá & Online',
@@ -33,7 +33,7 @@ const seo = {
   fr: {
     title: 'OuiPaula | Professeure de Français à Bogotá & en Ligne',
     description:
-      'Cours de français personnalisés à Bogotá et en ligne pour adultes. Philologue certifiée DALF. Préparation DELF/DALF, français des affaires et voyages.',
+      'Cours de français personnalisés pour jeunes et adultes. Philologue certifiée DALF. Préparation DELF/DALF et TCF Canada. En ligne Bogotá et Amérique latine.',
     ogLocale: 'fr_FR',
     ogImageAlt: 'OuiPaula | Professeure de Français à Bogotá & en Ligne',
     twitterImageAlt: 'OuiPaula | Professeure de Français à Bogotá & en Ligne',
@@ -112,7 +112,7 @@ const hero = {
     h1Line1: 'Parlez-vous',
     h1Line2: 'français\u00a0?',
     subtitle:
-      'Personalized French classes for adults — travel, business, or DELF/DALF certification. In-person in Bogotá and online for all of LATAM.',
+      'Personalized French classes for young learners and adults — French for academic or immigration purposes. Preparation for DELF/DALF and TCF Canada certification. Online for Bogotá and all of Latin America.',
     ctaPrimary: 'See courses →',
     ctaSecondary: 'Book Class',
     proofStars: '5 stars',
@@ -128,7 +128,7 @@ const hero = {
     h1Line1: 'Parlez-vous',
     h1Line2: 'français\u00a0?',
     subtitle:
-      "Cours de français personnalisés pour adultes — voyages, affaires ou certification DELF/DALF. En présentiel à Bogotá et en ligne pour toute l'Amérique latine.",
+      "Cours de français personnalisés pour jeunes et adultes — français avec objectifs académiques ou migratoires. Préparation aux certifications DELF/DALF et TCF Canada. En ligne pour Bogotá et toute l'Amérique latine.",
     ctaPrimary: 'Voir les cours →',
     ctaSecondary: 'Réserver un Cours',
     proofStars: '5 étoiles',
@@ -146,7 +146,7 @@ const about = {
   es: {
     eyebrow: 'À propos de moi',
     title: 'Sobre mí',
-    bio: 'Soy licenciada en Filología e Idiomas: Francés y cuento con más de 5 años de experiencia enseñando francés a adolescentes y adultos. Mi objetivo es acompañar a los estudiantes en su proceso de aprendizaje, el cual les permite acceder a oportunidades académicas y profesionales internacionales.',
+    bio: 'Soy licenciada en Filología francesa y cuento con más de 5 años de experiencia enseñando francés a adolescentes y adultos. Mi objetivo es acompañar a los estudiantes en su proceso de aprendizaje, el cual les permite acceder a oportunidades académicas y profesionales internacionales.',
     photoAlt: 'Foto de la profesora',
     badge1: 'Filóloga en Francés',
     badge2: 'DALF C1 Certificada',
@@ -158,7 +158,7 @@ const about = {
   en: {
     eyebrow: 'About me',
     title: 'About me',
-    bio: 'I have a degree in Philology and Languages: French, and I have more than 5 years of experience teaching French to teenagers and adults. My goal is to accompany students in their learning process, which allows them to access international academic and professional opportunities.',
+    bio: 'I have a degree in French Philology, and I have worked as a French teacher for over 5 years with teenagers and adults. My goal is to support students in their learning process, which allows them to access international academic and professional opportunities.',
     photoAlt: 'Photo of the teacher',
     badge1: 'French Philologist',
     badge2: 'DALF C1 Certified',
@@ -170,7 +170,7 @@ const about = {
   fr: {
     eyebrow: 'À propos de moi',
     title: 'À propos de moi',
-    bio: "Je suis diplômée en philologie et langues étrangères (français) et j'ai plus de 5 ans d'expérience dans l'enseignement du français aux adolescents et aux adultes. Mon objectif est d'accompagner les étudiants dans leur processus d'apprentissage, qui leur permet d'accéder à des opportunités académiques et professionnelles internationales.",
+    bio: 'Je suis diplômée en philologie française et j\'enseigne le français depuis plus de 5 ans à des adolescents et des adultes. Mon objectif est d\'accompagner les étudiants dans leur processus d\'apprentissage, qui leur permet d\'accéder à des opportunités académiques et professionnelles internationales.',
     photoAlt: 'Photo de la professeure',
     badge1: 'Philologue en Français',
     badge2: 'Certifiée DALF C1',
@@ -196,31 +196,22 @@ const services = {
         title: 'Clases Individuales',
         description:
           'Plan 100% personalizado según tu nivel, objetivos y disponibilidad. Avanza a tu propio ritmo con atención exclusiva.',
-        chips: ['Nivel A1–C2', 'Online o presencial', 'Horario flexible'],
-        cta: 'Conocer más',
-      },
-      {
-        id: 'business',
-        titleFr: 'Français des affaires',
-        title: 'Francés de Negocios',
-        description:
-          'Comunicación profesional, presentaciones, emails y cultura empresarial del mundo francófono para ejecutivos.',
-        chips: ['Ejecutivos', 'Reuniones', 'Presentaciones'],
+        chips: ['Nivel A1–B2', 'Online', 'Horario flexible'],
         cta: 'Conocer más',
       },
       {
         id: 'delf',
-        titleFr: 'Préparation officielle',
-        title: 'Prep. DELF / DALF',
+        titleFr: 'Préparation examens internationaux',
+        title: 'Prep. DELF / DALF y TCF Canadá',
         description:
-          'Prepárate con estrategia y material oficial para obtener tu certificación del Ministerio de Francia.',
-        chips: ['Todos los niveles', 'Simulacros', 'Material oficial'],
+          'Prepárate con simulaciones y material oficial para obtener tu certificación oficial.',
+        chips: ['DELF/DALF', 'TCF Canadá', 'Simulaciones'],
         cta: 'Conocer más',
       },
       {
         id: 'travel',
-        titleFr: 'Français du voyageur',
-        title: 'Francés para Viajes',
+        titleFr: 'Français pour voyager',
+        title: 'Francés para Viajar',
         description:
           'Frases clave, vocabulario práctico y tips culturales para viajar con seguridad y confianza total.',
         chips: ['Desde cero', 'Supervivencia', 'Cultura viajera'],
@@ -241,30 +232,21 @@ const services = {
         title: 'Private Classes',
         description:
           '100% personalized plan based on your level, goals, and availability. Progress at your own pace with exclusive attention.',
-        chips: ['Level A1–C2', 'Online or in-person', 'Flexible schedule'],
-        cta: 'Learn more',
-      },
-      {
-        id: 'business',
-        titleFr: 'Français des affaires',
-        title: 'Business French',
-        description:
-          'Professional communication, presentations, emails, and Francophone business culture for executives.',
-        chips: ['Executives', 'Meetings', 'Presentations'],
+        chips: ['Level A1–B2', 'Online', 'Flexible schedule'],
         cta: 'Learn more',
       },
       {
         id: 'delf',
-        titleFr: 'Préparation officielle',
-        title: 'DELF / DALF Prep',
+        titleFr: 'Préparation examens internationaux',
+        title: 'DELF / DALF & TCF Canada Prep',
         description:
-          'Prepare strategically with official materials to obtain your certification from the French Ministry.',
-        chips: ['All levels', 'Mock exams', 'Official materials'],
+          'Prepare with mock exams and official materials to obtain your official certification.',
+        chips: ['DELF/DALF', 'TCF Canada', 'Mock exams'],
         cta: 'Learn more',
       },
       {
         id: 'travel',
-        titleFr: 'Français du voyageur',
+        titleFr: 'Français pour voyager',
         title: 'French for Travel',
         description:
           'Key phrases, practical vocabulary, and cultural tips to travel safely and with total confidence.',
@@ -286,31 +268,22 @@ const services = {
         title: 'Cours particuliers',
         description:
           'Plan 100% personnalisé selon votre niveau, vos objectifs et vos disponibilités. Progressez à votre rythme avec une attention exclusive.',
-        chips: ['Niveau A1–C2', 'En ligne ou présentiel', 'Horaires flexibles'],
-        cta: 'En savoir plus',
-      },
-      {
-        id: 'business',
-        titleFr: 'Français des affaires',
-        title: 'Français des affaires',
-        description:
-          "Communication professionnelle, présentations, e-mails et culture d'entreprise du monde francophone pour cadres.",
-        chips: ['Cadres', 'Réunions', 'Présentations'],
+        chips: ['Niveau A1–B2', 'En ligne', 'Horaires flexibles'],
         cta: 'En savoir plus',
       },
       {
         id: 'delf',
-        titleFr: 'Préparation officielle',
-        title: 'Préparation DELF / DALF',
+        titleFr: 'Préparation examens internationaux',
+        title: 'Préparation DELF / DALF et TCF Canada',
         description:
-          'Préparez-vous avec stratégie et matériel officiel pour obtenir votre certification du Ministère français.',
-        chips: ['Tous niveaux', 'Examens blancs', 'Matériel officiel'],
+          'Préparez-vous avec des simulations et du matériel officiel pour obtenir votre certification officielle.',
+        chips: ['DELF/DALF', 'TCF Canada', 'Simulations'],
         cta: 'En savoir plus',
       },
       {
         id: 'travel',
-        titleFr: 'Français du voyageur',
-        title: 'Français pour voyageurs',
+        titleFr: 'Français pour voyager',
+        title: 'Français pour voyager',
         description:
           'Phrases clés, vocabulaire pratique et conseils culturels pour voyager en toute sécurité et confiance.',
         chips: ['Débutants', 'Survie en français', 'Culture voyage'],
@@ -439,7 +412,7 @@ const methodology = {
 const contact = {
   es: {
     eyebrow: 'Prendre rendez-vous',
-    title: '¿Lista para empezar?',
+    title: '¿Listo para empezar?',
     titleStandalone: 'Agenda tu clase',
     subtitle:
       'Agenda tu primera clase de prueba completamente gratis. Sin compromiso.',
@@ -585,7 +558,7 @@ const contact = {
 const footer = {
   es: {
     tagline:
-      'Clases de francés personalizadas en Bogotá y online para adultos de toda LATAM.',
+      'Clases de francés personalizadas para jóvenes y adultos. Preparación DELF/DALF y TCF Canadá. En línea para Bogotá y todo LATAM.',
     navHeading: 'Navegación',
     socialHeading: 'Sígueme',
     links: {
@@ -603,7 +576,7 @@ const footer = {
   },
   en: {
     tagline:
-      'Personalized French classes in Bogotá and online for adults across LATAM.',
+      'Personalized French classes for young learners and adults. DELF/DALF and TCF Canada prep. Online for Bogotá and all of Latin America.',
     navHeading: 'Navigation',
     socialHeading: 'Follow me',
     links: {
@@ -621,7 +594,7 @@ const footer = {
   },
   fr: {
     tagline:
-      "Cours de français personnalisés à Bogotá et en ligne pour adultes de toute l'Amérique latine.",
+      "Cours de français personnalisés pour jeunes et adultes. Préparation DELF/DALF et TCF Canada. En ligne pour Bogotá et toute l'Amérique latine.",
     navHeading: 'Navigation',
     socialHeading: 'Suivez-moi',
     links: {

@@ -9,30 +9,39 @@ export interface Testimonial {
 
 export const testimonials: Testimonial[] = [
     {
-        id: 'laura',
+        id: 'laura-montoya',
         quote:
-            'Siempre agradeceré que en mi camino se haya cruzado una profesora como tú, llena de vocación y amor por lo que hace; eso siempre fue evidente en todas nuestras clases. Estas siempre estuvieron llenas de aprendizajes y risas, cosas que valoro mucho como estudiante, ya que aprender un idioma desde cero no es nada fácil, pero de la mano de un buen docente, junto a su constante acompañamiento, lo hace más ameno y sencillo. Dicen que el amor por el idioma se adquiere por el camino y estoy totalmente de acuerdo, aún más de lado de buenos docentes que tienen el amor por enseñar, la empatía por entender a sus estudiantes y el conocimiento para transmitir. He de decir que muchas de mis mejores clases fueron contigo; tu dulzura te caracteriza y hace que nosotros, como estudiantes, nos sintamos acogidos, acompañados, escuchados y, más que todo, con ganas y ánimo de seguir aprendiendo el idioma.',
+            'Siempre agradeceré que en mi camino se haya cruzado una profesora como tú, llena de vocación y amor por lo que hace; eso siempre fue evidente en todas nuestras clases. Estas siempre estuvieron llenas de aprendizajes y risas, cosas que valoro mucho como estudiante, ya que aprender un idioma desde cero no es nada fácil, pero de la mano de un buen docente, junto a su constante acompañamiento, lo hace más ameno y sencillo.',
         studentName: 'Laura Montoya',
         location: 'Bogotá',
         context: 'Francés A1-B2 + Preparación DALF C1',
         initials: 'LM',
     },
     {
-        id: 'silvia',
+        id: 'silvia-martinez',
         quote:
-            'Personalmente, me gustaban mucho las clases, ya que además de ver los temas estipulados en el libro y obligatorios de cada clase, nos dabas tips y aprendíamos de forma dinámica muchas cosas más. Igualmente, estaba esa cercanía y humanidad que tienes con tus estudiantes; entonces, eso facilita el aprendizaje y vuelve las clases más amenas 🫶🏻.',
+            'Personalmente, me gustaban mucho las clases, ya que además de ver los temas estipulados en el libro y obligatorios de cada clase, nos dabas tips y aprendíamos de forma dinámica muchas cosas más. Igualmente, estaba esa cercanía y humanidad que tienes con tus estudiantes; entonces, eso facilita el aprendizaje y vuelve las clases más amenas 🤚🏻.',
         studentName: 'Silvia Martinez',
         location: 'Medellín',
-        context: 'Francés A2- B2 + Preparación DALF C1',
+        context: 'Francés A2-B2 + Preparación DALF C1',
         initials: 'SM',
     },
     {
-        id: 'gomez',
+        id: 'laura-correa',
         quote:
-            'La mejor profesora de francés que he tenido. Tiene una paciencia increíble y hace cada clase interesante y diferente.',
-        studentName: 'Laura Gómez',
+            'Aprender francés con Paula fue una experiencia transformadora. Su paciencia y dedicación hicieron que cada clase fuera productiva y entretenida. En poco tiempo pude avanzar de B1 a B2 con total confianza.',
+        studentName: 'Laura Correa',
         location: 'Bogotá',
-        context: 'Clases individuales',
-        initials: 'LG',
+        context: 'Francés B1-B2',
+        initials: 'LC',
+    },
+    {
+        id: 'paola-montanez',
+        quote:
+            'Paula tiene un don para enseñar. Su metodología clara y su empatía hacen que aprender francés sea mucho más sencillo de lo que pensaba. Recomiendo sus clases al 100%.',
+        studentName: 'Paola Montañez',
+        location: 'Cali',
+        context: 'Francés A2-B2',
+        initials: 'PM',
     },
 ];
